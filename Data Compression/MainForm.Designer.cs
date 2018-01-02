@@ -36,9 +36,7 @@
             this.compressButton = new System.Windows.Forms.Button();
             this.typeLabel = new System.Windows.Forms.Label();
             this.extractButton = new System.Windows.Forms.Button();
-            this.ratioLabel = new System.Windows.Forms.Label();
             this.lengthLabel = new System.Windows.Forms.Label();
-            this.compressedLengthLabel = new System.Windows.Forms.Label();
             this.algorithmGroupBox = new System.Windows.Forms.GroupBox();
             this.arithmeticRadioButton = new System.Windows.Forms.RadioButton();
             this.lzwRadioButton = new System.Windows.Forms.RadioButton();
@@ -98,7 +96,7 @@
             // 
             // compressButton
             // 
-            this.compressButton.Location = new System.Drawing.Point(661, 232);
+            this.compressButton.Location = new System.Drawing.Point(661, 226);
             this.compressButton.Name = "compressButton";
             this.compressButton.Size = new System.Drawing.Size(149, 45);
             this.compressButton.TabIndex = 5;
@@ -117,22 +115,13 @@
             // 
             // extractButton
             // 
-            this.extractButton.Location = new System.Drawing.Point(661, 283);
+            this.extractButton.Location = new System.Drawing.Point(661, 277);
             this.extractButton.Name = "extractButton";
             this.extractButton.Size = new System.Drawing.Size(149, 45);
             this.extractButton.TabIndex = 8;
             this.extractButton.Text = "Extract";
             this.extractButton.UseVisualStyleBackColor = true;
             this.extractButton.Click += new System.EventHandler(this.extractButton_Click);
-            // 
-            // ratioLabel
-            // 
-            this.ratioLabel.AutoSize = true;
-            this.ratioLabel.Location = new System.Drawing.Point(411, 414);
-            this.ratioLabel.Name = "ratioLabel";
-            this.ratioLabel.Size = new System.Drawing.Size(176, 25);
-            this.ratioLabel.TabIndex = 9;
-            this.ratioLabel.Text = "Compression ratio:";
             // 
             // lengthLabel
             // 
@@ -142,15 +131,6 @@
             this.lengthLabel.Size = new System.Drawing.Size(120, 25);
             this.lengthLabel.TabIndex = 11;
             this.lengthLabel.Text = "Total length:";
-            // 
-            // compressedLengthLabel
-            // 
-            this.compressedLengthLabel.AutoSize = true;
-            this.compressedLengthLabel.Location = new System.Drawing.Point(23, 414);
-            this.compressedLengthLabel.Name = "compressedLengthLabel";
-            this.compressedLengthLabel.Size = new System.Drawing.Size(188, 25);
-            this.compressedLengthLabel.TabIndex = 12;
-            this.compressedLengthLabel.Text = "Compressed length:";
             // 
             // algorithmGroupBox
             // 
@@ -300,9 +280,7 @@
             this.Controls.Add(this.algorithmCheckBox);
             this.Controls.Add(this.existLabel);
             this.Controls.Add(this.algorithmGroupBox);
-            this.Controls.Add(this.compressedLengthLabel);
             this.Controls.Add(this.lengthLabel);
-            this.Controls.Add(this.ratioLabel);
             this.Controls.Add(this.extractButton);
             this.Controls.Add(this.typeLabel);
             this.Controls.Add(this.compressButton);
@@ -318,7 +296,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Compression";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.algorithmGroupBox.ResumeLayout(false);
@@ -339,9 +316,7 @@
         private System.Windows.Forms.Button compressButton;
         private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.Button extractButton;
-        private System.Windows.Forms.Label ratioLabel;
         private System.Windows.Forms.Label lengthLabel;
-        private System.Windows.Forms.Label compressedLengthLabel;
         private System.Windows.Forms.GroupBox algorithmGroupBox;
         private System.Windows.Forms.RadioButton adaptiveHuffmanRadioButton;
         private System.Windows.Forms.RadioButton huffmanRadioButton;

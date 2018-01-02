@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,12 @@ namespace Data_Compression
             {
                 fileListView.Items.Add(new ListViewItem(new string[] { file.FileName, file.CompressedLength.ToString(), file.OriginalLength.ToString(), file.Ratio.ToString(), file.Algorithm }));
             }
+        }
+
+        private void openButton_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Path))
+                Process.Start("explorer.exe", Path);
         }
     }
 }

@@ -8,10 +8,22 @@ namespace Data_Compression
 {
     public class RunLengthCoding
     {
-        public void Compress()
-        { }
+        public CompressedFileInfo Encode(string sourcePath, string destPath, bool losslessJPEG)
+        {
+            if (!losslessJPEG)
+            {
 
-        public void Extract()
-        { }
+            }
+            else
+            {
+
+            }
+            return new CompressedFileInfo("test", "Run-Length Coding", 1005, 920);
+        }
+
+        public void Decode(string sourcePath, string destPath)
+        {
+
+        }
     }
 }

@@ -44,6 +44,57 @@ namespace Data_Compression
             lengthLabel.Text = "Total length: " + String.Format("{0:n0}", f.Length) + " bytes";
         }
 
+        void DoCompression()
+        {
+            string sourcePath = pathTextBox.Text;
+            string destPath = compressSaveFileDialog.FileName;
+            bool losslessJPEG = jpegCheckBox.Checked;
+            List<CompressedFileInfo> files = new List<CompressedFileInfo>();
+            if (algorithmCheckBox.Checked)
+            {
+                // to do
+                files.Add(new RunLengthCoding().Encode(sourcePath, destPath, losslessJPEG));
+                // to do
+            }
+            else
+            {
+                CompressedFileInfo file = new CompressedFileInfo();
+                if (shannonFanoRadioButton.Checked)
+                {
+                    // to do
+                };
+                if (huffmanRadioButton.Checked)
+                {
+                    // to do
+                };
+                if (adaptiveHuffmanRadioButton.Checked)
+                {
+                    // to do
+                };
+                if (runLengthRadioButton.Checked)
+                {
+                    file = new RunLengthCoding().Encode(sourcePath, destPath, losslessJPEG);
+                };
+                if (lzwRadioButton.Checked)
+                {
+                    // to do
+                };
+                if (arithmeticRadioButton.Checked)
+                {
+                    // to do
+                };
+                files.Add(file);
+            }
+            new StatisticsForm(Path.GetDirectoryName(destPath), files).Show();
+        }
+
+        void DoExtraction()
+        {
+            string sourcePath = pathTextBox.Text;
+            string destPath = extractSaveFileDialog.FileName;
+            // to do
+        }
+
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
             pathTextBox.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
@@ -84,9 +135,7 @@ namespace Data_Compression
         {
             if (compressSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                List<CompressedFileInfo> files = new List<CompressedFileInfo>();
-                files.Add(new CompressedFileInfo("name", "lzw", 1005, 915));
-                new StatisticsForm(compressSaveFileDialog.FileName, files).Show();
+                DoCompression();
             }
         }
 
@@ -94,20 +143,13 @@ namespace Data_Compression
         {
             if (extractSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter writer = File.CreateText(extractSaveFileDialog.FileName);
-                writer.WriteLine("abcd");
-                writer.Close();
+                DoExtraction();
             }
         }
 
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

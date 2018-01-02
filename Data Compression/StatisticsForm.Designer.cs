@@ -34,9 +34,9 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pathLabel = new System.Windows.Forms.Label();
             this.openButton = new System.Windows.Forms.Button();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // fileListView
@@ -48,7 +48,7 @@
             this.columnHeader4,
             this.columnHeader5});
             this.fileListView.Location = new System.Drawing.Point(32, 73);
-            this.fileListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileListView.Margin = new System.Windows.Forms.Padding(4);
             this.fileListView.Name = "fileListView";
             this.fileListView.Size = new System.Drawing.Size(872, 369);
             this.fileListView.TabIndex = 0;
@@ -58,7 +58,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 140;
+            this.columnHeader1.Width = 134;
             // 
             // columnHeader2
             // 
@@ -68,12 +68,17 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Original Length";
-            this.columnHeader3.Width = 197;
+            this.columnHeader3.Width = 181;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Compression Ratio";
             this.columnHeader4.Width = 181;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Algorithm";
+            this.columnHeader5.Width = 169;
             // 
             // pathLabel
             // 
@@ -92,11 +97,7 @@
             this.openButton.TabIndex = 2;
             this.openButton.Text = "Open file location";
             this.openButton.UseVisualStyleBackColor = true;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Algorithm";
-            this.columnHeader5.Width = 148;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // StatisticsForm
             // 
@@ -109,7 +110,7 @@
             this.Controls.Add(this.fileListView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StatisticsForm";
             this.Text = "Statistics";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);

@@ -15,6 +15,8 @@ namespace Data_Compression
         public float Ratio;
         public float Percentage;
 
+        public CompressedFileInfo() { }
+
         public CompressedFileInfo(string FileName, string Algorithm, long OriginalLength, long CompressedLength)
         {
             this.FileName = FileName;
