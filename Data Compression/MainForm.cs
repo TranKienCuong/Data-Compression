@@ -20,6 +20,7 @@ namespace Data_Compression
 
         void LoadFileInfo(string path)
         {
+            jpegCheckBox.Visible = false;
             string ext = Path.GetExtension(path).ToLower();
             switch (ext)
             {
@@ -30,14 +31,7 @@ namespace Data_Compression
                 case ".png":
                 case ".bmp":
                     typeLabel.Text = "File type: Image";
-                    break;
-                case ".mp3":
-                case ".wav":
-                    typeLabel.Text = "File type: Audio";
-                    break;
-                case ".mp4":
-                case ".avi":
-                    typeLabel.Text = "File type: Video";
+                    jpegCheckBox.Visible = true;
                     break;
                 case ".cdt":
                     typeLabel.Text = "File type: CDT Compression";
@@ -90,14 +84,30 @@ namespace Data_Compression
         {
             if (compressSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter writer = File.CreateText(compressSaveFileDialog.FileName);
-                writer.WriteLine("abcd");
-                writer.Close();
+                List<CompressedFileInfo> files = new List<CompressedFileInfo>();
+                files.Add(new CompressedFileInfo("name", "lzw", 1005, 915));
+                new StatisticsForm(compressSaveFileDialog.FileName, files).Show();
             }
         }
 
         private void extractButton_Click(object sender, EventArgs e)
         {
+            if (extractSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter writer = File.CreateText(extractSaveFileDialog.FileName);
+                writer.WriteLine("abcd");
+                writer.Close();
+            }
+        }
+
+        private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

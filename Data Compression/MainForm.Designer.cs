@@ -39,8 +39,7 @@
             this.ratioLabel = new System.Windows.Forms.Label();
             this.lengthLabel = new System.Windows.Forms.Label();
             this.compressedLengthLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.jpegRadioButton = new System.Windows.Forms.RadioButton();
+            this.algorithmGroupBox = new System.Windows.Forms.GroupBox();
             this.arithmeticRadioButton = new System.Windows.Forms.RadioButton();
             this.lzwRadioButton = new System.Windows.Forms.RadioButton();
             this.adaptiveHuffmanRadioButton = new System.Windows.Forms.RadioButton();
@@ -50,11 +49,12 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.compressSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.extractSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.automaticRadioButton = new System.Windows.Forms.RadioButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.existLabel = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.algorithmCheckBox = new System.Windows.Forms.CheckBox();
+            this.jpegCheckBox = new System.Windows.Forms.CheckBox();
+            this.algorithmGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -152,37 +152,25 @@
             this.compressedLengthLabel.TabIndex = 12;
             this.compressedLengthLabel.Text = "Compressed length:";
             // 
-            // groupBox1
+            // algorithmGroupBox
             // 
-            this.groupBox1.Controls.Add(this.automaticRadioButton);
-            this.groupBox1.Controls.Add(this.jpegRadioButton);
-            this.groupBox1.Controls.Add(this.arithmeticRadioButton);
-            this.groupBox1.Controls.Add(this.lzwRadioButton);
-            this.groupBox1.Controls.Add(this.adaptiveHuffmanRadioButton);
-            this.groupBox1.Controls.Add(this.huffmanRadioButton);
-            this.groupBox1.Controls.Add(this.shannonFanoRadioButton);
-            this.groupBox1.Controls.Add(this.runLengthRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(27, 227);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(619, 175);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Algorithm";
-            // 
-            // jpegRadioButton
-            // 
-            this.jpegRadioButton.AutoSize = true;
-            this.jpegRadioButton.Location = new System.Drawing.Point(297, 134);
-            this.jpegRadioButton.Name = "jpegRadioButton";
-            this.jpegRadioButton.Size = new System.Drawing.Size(171, 29);
-            this.jpegRadioButton.TabIndex = 6;
-            this.jpegRadioButton.Text = "Lossless JPEG";
-            this.jpegRadioButton.UseVisualStyleBackColor = true;
+            this.algorithmGroupBox.Controls.Add(this.arithmeticRadioButton);
+            this.algorithmGroupBox.Controls.Add(this.lzwRadioButton);
+            this.algorithmGroupBox.Controls.Add(this.adaptiveHuffmanRadioButton);
+            this.algorithmGroupBox.Controls.Add(this.huffmanRadioButton);
+            this.algorithmGroupBox.Controls.Add(this.shannonFanoRadioButton);
+            this.algorithmGroupBox.Controls.Add(this.runLengthRadioButton);
+            this.algorithmGroupBox.Location = new System.Drawing.Point(27, 261);
+            this.algorithmGroupBox.Name = "algorithmGroupBox";
+            this.algorithmGroupBox.Size = new System.Drawing.Size(619, 138);
+            this.algorithmGroupBox.TabIndex = 13;
+            this.algorithmGroupBox.TabStop = false;
+            this.algorithmGroupBox.Text = "Or choose one";
             // 
             // arithmeticRadioButton
             // 
             this.arithmeticRadioButton.AutoSize = true;
-            this.arithmeticRadioButton.Location = new System.Drawing.Point(297, 99);
+            this.arithmeticRadioButton.Location = new System.Drawing.Point(291, 99);
             this.arithmeticRadioButton.Name = "arithmeticRadioButton";
             this.arithmeticRadioButton.Size = new System.Drawing.Size(191, 29);
             this.arithmeticRadioButton.TabIndex = 5;
@@ -192,7 +180,7 @@
             // lzwRadioButton
             // 
             this.lzwRadioButton.AutoSize = true;
-            this.lzwRadioButton.Location = new System.Drawing.Point(297, 64);
+            this.lzwRadioButton.Location = new System.Drawing.Point(291, 64);
             this.lzwRadioButton.Name = "lzwRadioButton";
             this.lzwRadioButton.Size = new System.Drawing.Size(316, 29);
             this.lzwRadioButton.TabIndex = 4;
@@ -202,7 +190,7 @@
             // adaptiveHuffmanRadioButton
             // 
             this.adaptiveHuffmanRadioButton.AutoSize = true;
-            this.adaptiveHuffmanRadioButton.Location = new System.Drawing.Point(27, 134);
+            this.adaptiveHuffmanRadioButton.Location = new System.Drawing.Point(25, 99);
             this.adaptiveHuffmanRadioButton.Name = "adaptiveHuffmanRadioButton";
             this.adaptiveHuffmanRadioButton.Size = new System.Drawing.Size(260, 29);
             this.adaptiveHuffmanRadioButton.TabIndex = 3;
@@ -212,17 +200,19 @@
             // huffmanRadioButton
             // 
             this.huffmanRadioButton.AutoSize = true;
-            this.huffmanRadioButton.Location = new System.Drawing.Point(27, 99);
+            this.huffmanRadioButton.Checked = true;
+            this.huffmanRadioButton.Location = new System.Drawing.Point(25, 64);
             this.huffmanRadioButton.Name = "huffmanRadioButton";
             this.huffmanRadioButton.Size = new System.Drawing.Size(178, 29);
             this.huffmanRadioButton.TabIndex = 2;
+            this.huffmanRadioButton.TabStop = true;
             this.huffmanRadioButton.Text = "Huffman Coding";
             this.huffmanRadioButton.UseVisualStyleBackColor = true;
             // 
             // shannonFanoRadioButton
             // 
             this.shannonFanoRadioButton.AutoSize = true;
-            this.shannonFanoRadioButton.Location = new System.Drawing.Point(27, 64);
+            this.shannonFanoRadioButton.Location = new System.Drawing.Point(25, 29);
             this.shannonFanoRadioButton.Name = "shannonFanoRadioButton";
             this.shannonFanoRadioButton.Size = new System.Drawing.Size(169, 29);
             this.shannonFanoRadioButton.TabIndex = 1;
@@ -232,7 +222,7 @@
             // runLengthRadioButton
             // 
             this.runLengthRadioButton.AutoSize = true;
-            this.runLengthRadioButton.Location = new System.Drawing.Point(297, 29);
+            this.runLengthRadioButton.Location = new System.Drawing.Point(291, 29);
             this.runLengthRadioButton.Name = "runLengthRadioButton";
             this.runLengthRadioButton.Size = new System.Drawing.Size(207, 29);
             this.runLengthRadioButton.TabIndex = 0;
@@ -246,18 +236,6 @@
             // compressSaveFileDialog
             // 
             this.compressSaveFileDialog.Filter = "CDT files (*.cdt)|*.cdt|All files (*.*)|*.*";
-            // 
-            // automaticRadioButton
-            // 
-            this.automaticRadioButton.AutoSize = true;
-            this.automaticRadioButton.Checked = true;
-            this.automaticRadioButton.Location = new System.Drawing.Point(27, 29);
-            this.automaticRadioButton.Name = "automaticRadioButton";
-            this.automaticRadioButton.Size = new System.Drawing.Size(124, 29);
-            this.automaticRadioButton.TabIndex = 7;
-            this.automaticRadioButton.TabStop = true;
-            this.automaticRadioButton.Text = "Automatic";
-            this.automaticRadioButton.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -287,6 +265,30 @@
             this.existLabel.Text = "File path does not exist!";
             this.existLabel.Visible = false;
             // 
+            // algorithmCheckBox
+            // 
+            this.algorithmCheckBox.AutoSize = true;
+            this.algorithmCheckBox.Location = new System.Drawing.Point(28, 226);
+            this.algorithmCheckBox.Name = "algorithmCheckBox";
+            this.algorithmCheckBox.Size = new System.Drawing.Size(337, 29);
+            this.algorithmCheckBox.TabIndex = 16;
+            this.algorithmCheckBox.Text = "All algorithms (export multiple files)";
+            this.algorithmCheckBox.UseVisualStyleBackColor = true;
+            this.algorithmCheckBox.CheckedChanged += new System.EventHandler(this.algorithmCheckBox_CheckedChanged);
+            // 
+            // jpegCheckBox
+            // 
+            this.jpegCheckBox.AutoSize = true;
+            this.jpegCheckBox.Checked = true;
+            this.jpegCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.jpegCheckBox.Location = new System.Drawing.Point(263, 147);
+            this.jpegCheckBox.Name = "jpegCheckBox";
+            this.jpegCheckBox.Size = new System.Drawing.Size(172, 29);
+            this.jpegCheckBox.TabIndex = 17;
+            this.jpegCheckBox.Text = "Lossless JPEG";
+            this.jpegCheckBox.UseVisualStyleBackColor = true;
+            this.jpegCheckBox.Visible = false;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -294,8 +296,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(828, 464);
+            this.Controls.Add(this.jpegCheckBox);
+            this.Controls.Add(this.algorithmCheckBox);
             this.Controls.Add(this.existLabel);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.algorithmGroupBox);
             this.Controls.Add(this.compressedLengthLabel);
             this.Controls.Add(this.lengthLabel);
             this.Controls.Add(this.ratioLabel);
@@ -314,10 +318,11 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Compression";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.algorithmGroupBox.ResumeLayout(false);
+            this.algorithmGroupBox.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -337,7 +342,7 @@
         private System.Windows.Forms.Label ratioLabel;
         private System.Windows.Forms.Label lengthLabel;
         private System.Windows.Forms.Label compressedLengthLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox algorithmGroupBox;
         private System.Windows.Forms.RadioButton adaptiveHuffmanRadioButton;
         private System.Windows.Forms.RadioButton huffmanRadioButton;
         private System.Windows.Forms.RadioButton shannonFanoRadioButton;
@@ -347,11 +352,11 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog compressSaveFileDialog;
         private System.Windows.Forms.SaveFileDialog extractSaveFileDialog;
-        private System.Windows.Forms.RadioButton jpegRadioButton;
-        private System.Windows.Forms.RadioButton automaticRadioButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label existLabel;
+        private System.Windows.Forms.CheckBox algorithmCheckBox;
+        private System.Windows.Forms.CheckBox jpegCheckBox;
     }
 }
 
