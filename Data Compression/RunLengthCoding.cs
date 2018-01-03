@@ -23,11 +23,11 @@ namespace Data_Compression
                     int count = 1;
                     while (!reader.EndOfStream && reader.Read() == c)
                         count++;
-                    result += (((char)c).ToString() + count.ToString() + " ");
+                    result += (((char)c).ToString() + count.ToString());
                 }
                 reader.Close();
                 StreamWriter writer = File.CreateText(destPath);
-                writer.WriteLine("3");
+                writer.WriteLine((int)ALGORITHM.RunLengthCoding);
                 writer.WriteLine(Path.GetExtension(sourcePath));
                 writer.Write(result);
                 writer.Close();
@@ -42,7 +42,21 @@ namespace Data_Compression
 
         public void Decode(string sourcePath, string destPath)
         {
-
+            StreamReader reader = File.OpenText(sourcePath);
+            reader.ReadLine(); // encode algorithm
+            string ext = reader.ReadLine(); // file extension
+            string result = "";
+            while (!reader.EndOfStream)
+            {
+                int c = reader.Read();
+                int count = reader.Read() - '0';
+                for (int i = 0; i < count; i++)
+                    result += (char)c;
+            }
+            reader.Close();
+            StreamWriter writer = File.CreateText(destPath);
+            writer.Write(result);
+            writer.Close();
         }
     }
 }

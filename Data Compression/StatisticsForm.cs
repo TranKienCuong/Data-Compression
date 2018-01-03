@@ -14,19 +14,19 @@ namespace Data_Compression
 {
     public partial class StatisticsForm : Form
     {
-        string Path;
+        string DirectoryPath;
         List<CompressedFileInfo> Files;
 
         public StatisticsForm(string Path, List<CompressedFileInfo> Files)
         {
-            this.Path = Path;
+            this.DirectoryPath = Path;
             this.Files = Files;
             InitializeComponent();
         }
 
         private void StatisticsForm_Load(object sender, EventArgs e)
         {
-            pathLabel.Text = "Path: " + Path;
+            pathLabel.Text = "Path: " + DirectoryPath;
             foreach (var file in Files)
             {
                 fileListView.Items.Add(new ListViewItem(new string[] { file.FileName, file.CompressedLength.ToString(), file.OriginalLength.ToString(), file.Ratio.ToString(), file.Algorithm }));
@@ -35,8 +35,8 @@ namespace Data_Compression
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(Path))
-                Process.Start("explorer.exe", Path);
+            if (Directory.Exists(DirectoryPath))
+                Process.Start("explorer.exe", DirectoryPath);
         }
     }
 }

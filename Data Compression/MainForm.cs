@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace Data_Compression
 {
@@ -37,6 +38,10 @@ namespace Data_Compression
                     break;
                 case ".cdt":
                     typeLabel.Text = "File type: CDT Compression";
+                    StreamReader reader = File.OpenText(pathTextBox.Text);
+                    reader.ReadLine();
+                    string extension = reader.ReadLine();
+                    extractSaveFileDialog.Filter = "*" + extension + " | *" + extension + " | All files(*.*) | *.*";
                     break;
                 default:
                     typeLabel.Text = "File type: Undefined";
@@ -94,7 +99,32 @@ namespace Data_Compression
         {
             string sourcePath = pathTextBox.Text;
             string destPath = extractSaveFileDialog.FileName;
-            // to do
+            StreamReader reader = File.OpenText(sourcePath);
+            ALGORITHM algorithm = (ALGORITHM)int.Parse(reader.ReadLine());
+            string ext = reader.ReadLine();
+            extractSaveFileDialog.Filter = "*" + ext + " | *" + ext + " | All files(*.*) | *.*";
+            switch (algorithm)
+            {
+                case ALGORITHM.ShannonFano:
+                    // to do
+                    break;
+                case ALGORITHM.HuffmanCoding:
+                    // to do
+                    break;
+                case ALGORITHM.AdaptiveHuffmanCoding:
+                    // to do
+                    break;
+                case ALGORITHM.RunLengthCoding:
+                    new RunLengthCoding().Decode(sourcePath, destPath);
+                    break;
+                case ALGORITHM.LZW:
+                    // to do
+                    break;
+                case ALGORITHM.ArithmeticCoding:
+                    // to do
+                    break;
+            }
+            Process.Start("explorer.exe", destPath);
         }
 
         private void MainForm_DragDrop(object sender, DragEventArgs e)
