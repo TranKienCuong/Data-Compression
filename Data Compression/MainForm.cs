@@ -21,6 +21,7 @@ namespace Data_Compression
         void LoadFileInfo(string path)
         {
             jpegCheckBox.Visible = false;
+            jpegCheckBox.Checked = false;
             string ext = Path.GetExtension(path).ToLower();
             switch (ext)
             {
@@ -32,6 +33,7 @@ namespace Data_Compression
                 case ".bmp":
                     typeLabel.Text = "File type: Image";
                     jpegCheckBox.Visible = true;
+                    jpegCheckBox.Checked = true;
                     break;
                 case ".cdt":
                     typeLabel.Text = "File type: CDT Compression";
