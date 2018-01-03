@@ -9,54 +9,43 @@ namespace Data_Compression
 {
     public class RunLengthCoding
     {
-        public CompressedFileInfo Encode(string sourcePath, string destPath, bool losslessJPEG)
+        public string Encode(string data, bool losslessJPEG)
         {
-            long originalLength = new FileInfo(sourcePath).Length;
-            long compressedLength;
+            string result = "";
             if (!losslessJPEG)
             {
-                StreamReader reader = File.OpenText(sourcePath);
-                string result = "";
-                while (!reader.EndOfStream)
+                for (int i = 0; i < data.Length; )
                 {
-                    int c = reader.Read();
+                    char c = data[i];
                     int count = 1;
-                    while (!reader.EndOfStream && reader.Read() == c)
+                    for (int j = i + 1; j < data.Length; j++)
+                    {
+                        if (data[i] != data[j])
+                            break;
                         count++;
-                    result += (((char)c).ToString() + count.ToString());
+                    }
+                    result += c.ToString() + ((char)count).ToString();
+                    i += count;
                 }
-                reader.Close();
-                StreamWriter writer = File.CreateText(destPath);
-                writer.WriteLine((int)ALGORITHM.RunLengthCoding);
-                writer.WriteLine(Path.GetExtension(sourcePath));
-                writer.Write(result);
-                writer.Close();
-                compressedLength = new FileInfo(destPath).Length;
             }
             else
             {
-                compressedLength = new FileInfo(destPath).Length;
+                
             }
-            return new CompressedFileInfo(Path.GetFileName(destPath), "Run-Length Coding", originalLength, compressedLength);
+            return result;
         }
 
-        public void Decode(string sourcePath, string destPath)
+        public string Decode(string data)
         {
-            StreamReader reader = File.OpenText(sourcePath);
-            reader.ReadLine(); // encode algorithm
-            string ext = reader.ReadLine(); // file extension
             string result = "";
-            while (!reader.EndOfStream)
+            for (int i = 0; i < data.Length; i += 2)
             {
-                int c = reader.Read();
-                int count = reader.Read() - '0';
-                for (int i = 0; i < count; i++)
-                    result += (char)c;
+                char c = data[i];
+                int count = data[i + 1];
+                for (int j = 0; j < count; j++)
+                    result += c.ToString();
             }
-            reader.Close();
-            StreamWriter writer = File.CreateText(destPath);
-            writer.Write(result);
-            writer.Close();
+            return result;
         }
     }
 }
