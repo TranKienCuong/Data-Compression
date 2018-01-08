@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ALGORITHM.cs" />
     <Compile Include="CompressedFileInfo.cs" />
+    <Compile Include="LZWCoding.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

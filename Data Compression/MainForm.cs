@@ -96,7 +96,7 @@ namespace Data_Compression
                 if (lzwRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.LZW;
-                    // to do
+                    encodeData = new LZWCoding().Encode(data, losslessJPEG);
                 };
                 if (arithmeticRadioButton.Checked)
                 {
@@ -136,7 +136,7 @@ namespace Data_Compression
                     result = new RunLengthCoding().Decode(data);
                     break;
                 case ALGORITHM.LZW:
-                    // to do
+                    result = new LZWCoding().Decode(data);
                     break;
                 case ALGORITHM.ArithmeticCoding:
                     // to do
