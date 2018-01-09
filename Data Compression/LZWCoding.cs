@@ -58,14 +58,14 @@ namespace Data_Compression
                 string entry = "";
                 if (dictionary.ContainsKey(k))
                     entry = dictionary[k];
-                else if (s != "")
+                if (entry == "" && s != "")
                     entry = s + s[0].ToString();
                 result += entry;
                 if (s != "")
                 {
-                    dictionary[code++] = s + entry[0].ToString();
-                    s = entry;
+                    dictionary[code++] = s + entry[0].ToString(); 
                 }
+                s = entry;
             }
             return result;
         }
@@ -96,7 +96,7 @@ namespace Data_Compression
             {
                 binary += ConvertIntegerToBinaryString(str[i], 8);
             }
-            for (int i = 0; i < binary.Length; i += 9)
+            for (int i = 0; i < binary.Length - 9; i += 9)
             {
                 int x = ConvertBinaryStringToInteger(binary.Substring(i, 9));
                 result.Add(x);
