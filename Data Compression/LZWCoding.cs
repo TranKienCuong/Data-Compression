@@ -34,7 +34,12 @@ namespace Data_Compression
                     }
                 }
                 output.Add(dictionary[s]);
-                result = FormatIntsToString(output);
+                int x = code - 1;
+                int bitLength = 1;
+                for (; x > 0; x /= 2)
+                    bitLength++;
+                result += ((char)bitLength).ToString();
+                result += ConvertIntsToString(output, bitLength);
             }
             else
             {
@@ -45,8 +50,10 @@ namespace Data_Compression
 
         public string Decode(string data)
         {
+            int bitLength = data[0];
+            data = data.Substring(1);
             string result = "";
-            List<int> input = FormatStringToInts(data);
+            List<int> input = ConvertStringToInts(data, bitLength);
             Dictionary<int, string> dictionary = new Dictionary<int, string>();
             int code;
             for (code = 0; code < 256; code++)
@@ -70,62 +77,29 @@ namespace Data_Compression
             return result;
         }
 
-        string FormatIntsToString(List<int> ints)
+        string ConvertIntsToString(List<int> ints, int bitLength)
         {
             string result = "";
-            string binary = "";
-            foreach (int i in ints)
-            {
-                binary += ConvertIntegerToBinaryString(i, 9);
-            }
+            string binary = Utilities.ConvertListIntToBinaryString(ints, bitLength);
             while (binary.Length % 8 != 0)
                 binary += "0";
             for (int i = 0; i < binary.Length; i += 8)
             {
-                int x = ConvertBinaryStringToInteger(binary.Substring(i, 8));
+                int x = Utilities.ConvertBinaryStringToInteger(binary.Substring(i, 8));
                 result += ((char)x).ToString();
             }
             return result;
         }
 
-        List<int> FormatStringToInts(string str)
+        List<int> ConvertStringToInts(string str, int bitLength)
         {
-            List<int> result = new List<int>();
             string binary = "";
             for (int i = 0; i < str.Length; i++)
             {
-                binary += ConvertIntegerToBinaryString(str[i], 8);
+                binary += Utilities.ConvertIntegerToBinaryString(str[i], 8);
             }
-            for (int i = 0; i < binary.Length - 9; i += 9)
-            {
-                int x = ConvertBinaryStringToInteger(binary.Substring(i, 9));
-                result.Add(x);
-            }
+            List<int> result = Utilities.ConvertBinaryStringToListInt(binary, bitLength);
             return result;
-        }
-
-        int ConvertBinaryStringToInteger(string input)
-        {
-            int sum = 0;
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == '1')
-                {
-                    sum += (int)Math.Pow(2, input.Length - i - 1);
-                }
-            }
-            return sum;
-        }
-
-        string ConvertIntegerToBinaryString(int input, int length)
-        {
-            string binaryString = "";
-            for (int i = 0; i < length; i++)
-            {
-                binaryString = (input % 2).ToString() + binaryString;
-                input /= 2;
-            }
-            return binaryString;
         }
     }
 }

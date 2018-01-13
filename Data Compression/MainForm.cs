@@ -101,7 +101,7 @@ namespace Data_Compression
                 if (arithmeticRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ArithmeticCoding;
-                    // to do
+                    encodeData = new ArithmeticCoding().Encode(data, losslessJPEG);
                 };
                 result += (((int)algorithm).ToString() + "\r\n");
                 result += encodeData;
@@ -139,7 +139,7 @@ namespace Data_Compression
                     result = new LZWCoding().Decode(data);
                     break;
                 case ALGORITHM.ArithmeticCoding:
-                    // to do
+                    result = new ArithmeticCoding().Decode(data);
                     break;
             }
             StreamWriter writer = File.CreateText(destPath);

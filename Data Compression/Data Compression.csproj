@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ALGORITHM.cs" />
+    <Compile Include="ArithmeticCoding.cs" />
     <Compile Include="CompressedFileInfo.cs" />
     <Compile Include="LZWCoding.cs" />
     <Compile Include="MainForm.cs">
@@ -63,6 +64,7 @@
     <Compile Include="StatisticsForm.Designer.cs">
       <DependentUpon>StatisticsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
