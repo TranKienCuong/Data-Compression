@@ -90,17 +90,17 @@ namespace Data_Compression
                 if (runLengthRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.RunLengthCoding;
-                    encodeData = new RunLengthCoding().Encode(data, losslessJPEG);
+                    encodeData = new RunLengthCoding().Encode(data);
                 };
                 if (lzwRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.LZW;
-                    encodeData = new LZWCoding().Encode(data, losslessJPEG);
+                    encodeData = new LZWCoding().Encode(data);
                 };
                 if (arithmeticRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ArithmeticCoding;
-                    encodeData = new ArithmeticCoding().Encode(data, losslessJPEG);
+                    encodeData = new ArithmeticCoding().Encode(data);
                 };
                 result += (((int)algorithm).ToString() + "\r\n");
                 result += encodeData;

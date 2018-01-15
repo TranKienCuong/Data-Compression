@@ -9,20 +9,13 @@ namespace Data_Compression
 {
     public class ArithmeticCoding
     {
-        public string Encode(string data, bool losslessJPEG)
+        public string Encode(string data)
         {
             string result = "";
-            if (!losslessJPEG)
-            {
-                Dictionary<char, Tuple<double, double>> ranges = GetRanges(data);
-                int powOfTen = 1;
-                BigInteger low = 0, high = 1;
-                double range = 1;
-            }
-            else
-            {
-
-            }
+            Dictionary<char, Tuple<double, double>> ranges = GetRanges(data);
+            int powOfTen = 1;
+            BigInteger low = 0, high = 1;
+            double range = 1;
             return result;
         }
 

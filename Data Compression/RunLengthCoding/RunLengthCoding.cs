@@ -9,43 +9,37 @@ namespace Data_Compression
 {
     public class RunLengthCoding
     {
-        public string Encode(string data, bool losslessJPEG)
+        public string Encode(string data)
         {
-            string result = "";
-            if (!losslessJPEG)
+            StringBuilder result = new StringBuilder("");
+            for (int i = 0; i < data.Length;)
             {
-                for (int i = 0; i < data.Length; )
+                char c = data[i];
+                int count = 1;
+                for (int j = i + 1; j < data.Length; j++)
                 {
-                    char c = data[i];
-                    int count = 1;
-                    for (int j = i + 1; j < data.Length; j++)
-                    {
-                        if (data[i] != data[j])
-                            break;
-                        count++;
-                    }
-                    result += c.ToString() + ((char)count).ToString();
-                    i += count;
+                    if (data[i] != data[j])
+                        break;
+                    count++;
                 }
+                result.Append(c);
+                result.Append((char)count);
+                i += count;
             }
-            else
-            {
-                
-            }
-            return result;
+            return result.ToString();
         }
 
         public string Decode(string data)
         {
-            string result = "";
+            StringBuilder result = new StringBuilder("");
             for (int i = 0; i < data.Length; i += 2)
             {
                 char c = data[i];
                 int count = data[i + 1];
                 for (int j = 0; j < count; j++)
-                    result += c.ToString();
+                    result.Append(c);
             }
-            return result;
+            return result.ToString();
         }
     }
 }

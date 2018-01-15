@@ -34,12 +34,12 @@ namespace Data_Compression
         /// <returns></returns>
         public static string ConvertListIntToBinaryString(List<int> ints, int bitLength = 8)
         {
-            string result = "";
+            StringBuilder result = new StringBuilder("");
             foreach (int i in ints)
             {
-                result += ConvertIntegerToBinaryString(i, bitLength);
+                result.Append(ConvertIntegerToBinaryString(i, bitLength));
             }
-            return result;
+            return result.ToString();
         }
 
         /// <summary>
@@ -84,18 +84,20 @@ namespace Data_Compression
         /// <returns></returns>
         public static string ConvertImageToString(Bitmap image)
         {
-            string result = "";
-            for (int i = 0; i < image.Width; i++)
+            StringBuilder result = new StringBuilder("");
+            int width = image.Width;
+            int height = image.Height;
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < image.Height; j++)
+                for (int j = 0; j < height; j++)
                 {
                     Color color = image.GetPixel(i, j);
-                    result += color.R.ToString();
-                    result += color.G.ToString();
-                    result += color.B.ToString();
+                    result.Append(((char)color.R));
+                    result.Append(((char)color.G));
+                    result.Append(((char)color.B));
                 }
             }
-            return result;
+            return result.ToString();
         }
 
         /// <summary>
