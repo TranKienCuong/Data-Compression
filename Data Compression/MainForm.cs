@@ -66,8 +66,7 @@ namespace Data_Compression
                 else
                 {
                     Bitmap image = new Bitmap(sourcePath);
-                    image = new DifferentialImageCoding().Encode(image);
-                    data = Utilities.ConvertImageToString(image);
+                    data = new DifferentialImageCoding().Encode(image);
                     result += (((int)ALGORITHM.DifferentialImageCoding).ToString() + "\r\n");
                     result += ((char)image.Width).ToString() + ((char)image.Height).ToString() + "\r\n";
                 }
