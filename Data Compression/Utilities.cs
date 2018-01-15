@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,52 @@ namespace Data_Compression
                 input /= 2;
             }
             return binaryString;
+        }
+
+        /// <summary>
+        /// roll out an image to string, example: [(1,2,3),(4,5,6),(7,8,9),(1,2,3)] -> 123456789123
+        /// </summary>
+        /// <param name="image">24-bit bitmap image</param>
+        /// <returns></returns>
+        public static string ConvertImageToString(Bitmap image)
+        {
+            string result = "";
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    Color color = image.GetPixel(i, j);
+                    result += color.R.ToString();
+                    result += color.G.ToString();
+                    result += color.B.ToString();
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// convert one string to 24-bit bitmap image, example: (147125823693, 2, 2) -> [(1,2,3),(4,5,6),(7,8,9),(1,2,3)]
+        /// </summary>
+        /// <param name="data">input string</param>
+        /// <param name="width">image width</param>
+        /// <param name="height">image height</param>
+        /// <returns></returns>
+        public static Bitmap ConvertStringToImage(string data, int width, int height)
+        {
+            Bitmap image = new Bitmap(width, height);
+            int k = 0;
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    int r = data[k++];
+                    int g = data[k++];
+                    int b = data[k++];
+                    Color color = Color.FromArgb(r, g, b);
+                    image.SetPixel(i, j, color);
+                }
+            }
+            return image;
         }
     }
 }

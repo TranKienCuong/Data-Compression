@@ -13,6 +13,7 @@ namespace Data_Compression
         AdaptiveHuffmanCoding,
         RunLengthCoding,
         LZW,
-        ArithmeticCoding
+        ArithmeticCoding,
+        DifferentialImageCoding
     }
 }

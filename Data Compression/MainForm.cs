@@ -29,10 +29,8 @@ namespace Data_Compression
                 case ".txt":
                     typeLabel.Text = "File type: Text";
                     break;
-                case ".jpg":
-                case ".png":
                 case ".bmp":
-                    typeLabel.Text = "File type: Image";
+                    typeLabel.Text = "File type: Bitmap Image";
                     jpegCheckBox.Visible = true;
                     jpegCheckBox.Checked = true;
                     break;
@@ -56,21 +54,23 @@ namespace Data_Compression
             List<CompressedFileInfo> files = new List<CompressedFileInfo>();
             if (algorithmCheckBox.Checked)
             {
-                string data = File.ReadAllText(sourcePath);
-
-                string result = Path.GetExtension(sourcePath) + "\r\n";
-                ALGORITHM algorithm = ALGORITHM.RunLengthCoding;
-                result += (((int)algorithm).ToString() + "\r\n");
-                result += new RunLengthCoding().Encode(data, losslessJPEG);
-                File.WriteAllText(destPath, result);
-                long compressedLength = new FileInfo(destPath).Length;
-                files.Add(new CompressedFileInfo(Path.GetFileName(destPath), algorithm.ToString(), originalLength, compressedLength));
+                
             }
             else
             {
                 CompressedFileInfo file = new CompressedFileInfo();
-                string data = File.ReadAllText(sourcePath);
                 string result = Path.GetExtension(sourcePath) + "\r\n";
+                string data;
+                if (!losslessJPEG)
+                    data = File.ReadAllText(sourcePath);
+                else
+                {
+                    Bitmap image = new Bitmap(sourcePath);
+                    image = new DifferentialImageCoding().Encode(image);
+                    data = Utilities.ConvertImageToString(image);
+                    result += (((int)ALGORITHM.DifferentialImageCoding).ToString() + "\r\n");
+                    result += ((char)image.Width).ToString() + ((char)image.Height).ToString() + "\r\n";
+                }
                 ALGORITHM algorithm = 0;
                 string encodeData = "";
                 if (shannonFanoRadioButton.Checked)
@@ -118,6 +118,15 @@ namespace Data_Compression
             string sourcePath = pathTextBox.Text;
             string destPath = extractSaveFileDialog.FileName;
             ALGORITHM algorithm = (ALGORITHM)int.Parse(reader.ReadLine());
+            bool losslessJPEG = false;
+            int width = 0, height = 0;
+            if (algorithm == ALGORITHM.DifferentialImageCoding)
+            {
+                losslessJPEG = true;
+                width = reader.Read();
+                height = reader.Read();
+                algorithm = (ALGORITHM)int.Parse(reader.ReadLine());
+            }
             string data = reader.ReadToEnd();
             reader.Close();
             string result = "";
@@ -142,9 +151,19 @@ namespace Data_Compression
                     result = new ArithmeticCoding().Decode(data);
                     break;
             }
-            StreamWriter writer = File.CreateText(destPath);
-            writer.Write(result);
-            writer.Close();
+            if (!losslessJPEG)
+            {
+                StreamWriter writer = File.CreateText(destPath);
+                writer.Write(result);
+                writer.Close();
+            }
+            else
+            {
+                Bitmap image = new Bitmap(width, height);
+                image = Utilities.ConvertStringToImage(result, width, height);
+                image = new DifferentialImageCoding().Decode(image);
+                image.Save(destPath);
+            }
             Process.Start("explorer.exe", "/select, " + destPath);
         }
 
