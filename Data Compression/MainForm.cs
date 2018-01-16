@@ -67,8 +67,8 @@ namespace Data_Compression
                 {
                     Bitmap image = new Bitmap(sourcePath);
                     data = new DifferentialImageCoding().Encode(image);
-                    result += (((int)ALGORITHM.DifferentialImageCoding).ToString() + "\r\n");
-                    result += ((char)image.Width).ToString() + ((char)image.Height).ToString() + "\r\n";
+                    result += ((int)ALGORITHM.DifferentialImageCoding).ToString();
+                    result += ((char)image.Width).ToString() + ((char)image.Height).ToString();
                 }
                 ALGORITHM algorithm = 0;
                 string encodeData = "";
@@ -108,7 +108,7 @@ namespace Data_Compression
                     algorithm = ALGORITHM.ArithmeticCoding;
                     encodeData = new ArithmeticCoding().Encode(data);
                 };
-                result += (((int)algorithm).ToString() + "\r\n");
+                result += ((int)algorithm).ToString();
                 result += encodeData;
                 File.WriteAllText(destPath, result);
                 long compressedLength = new FileInfo(destPath).Length;
@@ -122,7 +122,7 @@ namespace Data_Compression
         {
             string sourcePath = pathTextBox.Text;
             string destPath = extractSaveFileDialog.FileName;
-            ALGORITHM algorithm = (ALGORITHM)int.Parse(reader.ReadLine());
+            ALGORITHM algorithm = (ALGORITHM)(reader.Read() - '0');
             bool losslessJPEG = false;
             int width = 0, height = 0;
             if (algorithm == ALGORITHM.DifferentialImageCoding)
@@ -130,7 +130,7 @@ namespace Data_Compression
                 losslessJPEG = true;
                 width = reader.Read();
                 height = reader.Read();
-                algorithm = (ALGORITHM)int.Parse(reader.ReadLine());
+                algorithm = (ALGORITHM)(reader.Read() - '0');
             }
             string data = reader.ReadToEnd();
             reader.Close();
@@ -164,9 +164,7 @@ namespace Data_Compression
             }
             else
             {
-                Bitmap image = new Bitmap(width, height);
-                image = Utilities.ConvertStringToImage(result, width, height);
-                image = new DifferentialImageCoding().Decode(image);
+                Bitmap image = new DifferentialImageCoding().Decode(result, width, height);
                 image.Save(destPath);
             }
             Process.Start("explorer.exe", "/select, " + destPath);
