@@ -49,15 +49,7 @@ namespace Data_Compression
         /// <returns></returns>
         public static int ConvertBinaryStringToInteger(string input)
         {
-            int sum = 0;
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == '1')
-                {
-                    sum += (int)Math.Pow(2, input.Length - i - 1);
-                }
-            }
-            return sum;
+            return Convert.ToInt32(input, 2);
         }
 
         /// <summary>
@@ -68,36 +60,7 @@ namespace Data_Compression
         /// <returns></returns>
         public static string ConvertIntegerToBinaryString(int input, int bitLength = 8)
         {
-            string binaryString = "";
-            for (int i = 0; i < bitLength; i++)
-            {
-                binaryString = (input % 2).ToString() + binaryString;
-                input /= 2;
-            }
-            return binaryString;
-        }
-
-        /// <summary>
-        /// roll out an image to string, example: [(1,2,3),(4,5,6),(7,8,9),(1,2,3)] -> 123456789123
-        /// </summary>
-        /// <param name="image">24-bit bitmap image</param>
-        /// <returns></returns>
-        public static string ConvertImageToString(Bitmap image)
-        {
-            StringBuilder result = new StringBuilder("");
-            int width = image.Width;
-            int height = image.Height;
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    Color color = image.GetPixel(i, j);
-                    result.Append(((char)color.R));
-                    result.Append(((char)color.G));
-                    result.Append(((char)color.B));
-                }
-            }
-            return result.ToString();
+            return Convert.ToString(input, 2).PadLeft(bitLength, '0');
         }
 
         /// <summary>
@@ -123,6 +86,29 @@ namespace Data_Compression
                 }
             }
             return image;
+        }
+
+        /// <summary>
+        /// roll out an 2D array of colors to one string, example: [[(1,2,3),(4,5,6)],[(7,8,9),(1,2,3)]] -> 123456789123
+        /// </summary>
+        /// <param name="matrix">2D array of colors</param>
+        /// <param name="width">width of array</param>
+        /// <param name="height">height of array</param>
+        /// <returns></returns>
+        public static string ConvertColorMatrixToString(Color[,] matrix, int width, int height)
+        {
+            StringBuilder result = new StringBuilder("");
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    Color color = matrix[i, j];
+                    result.Append(((char)color.R));
+                    result.Append(((char)color.G));
+                    result.Append(((char)color.B));
+                }
+            }
+            return result.ToString();
         }
     }
 }

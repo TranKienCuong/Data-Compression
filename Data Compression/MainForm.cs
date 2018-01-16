@@ -95,7 +95,13 @@ namespace Data_Compression
                 if (lzwRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.LZW;
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+
                     encodeData = new LZWCoding().Encode(data);
+
+                    sw.Stop();
+                    Console.WriteLine(sw.ElapsedMilliseconds);
                 };
                 if (arithmeticRadioButton.Checked)
                 {
