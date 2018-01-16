@@ -199,6 +199,7 @@ namespace Data_Compression
             {
                 existLabel.Visible = false;
                 compressSaveFileDialog.InitialDirectory = Path.GetDirectoryName(pathTextBox.Text);
+                compressSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(new FileInfo(pathTextBox.Text).Name);
                 extractSaveFileDialog.InitialDirectory = Path.GetDirectoryName(pathTextBox.Text);
                 LoadFileInfo(pathTextBox.Text);
             }
