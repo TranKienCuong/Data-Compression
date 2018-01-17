@@ -42,7 +42,7 @@ namespace Data_Compression
                         else
                             typeLabel.Text = "File type: Bitmap Image (not 24-bit)";
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         typeLabel.Text = "File type: Undefined";
                     };
@@ -73,6 +73,7 @@ namespace Data_Compression
             {
                 CompressedFileInfo file = new CompressedFileInfo();
                 string result = Path.GetExtension(sourcePath) + "\r\n";
+                
                 string data;
                 if (!losslessJPEG)
                     data = File.ReadAllText(sourcePath);
@@ -108,13 +109,7 @@ namespace Data_Compression
                 if (lzwRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.LZW;
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-
                     encodeData = new LZWCoding().Encode(data);
-
-                    sw.Stop();
-                    Console.WriteLine(sw.ElapsedMilliseconds);
                 };
                 if (arithmeticRadioButton.Checked)
                 {
@@ -123,7 +118,7 @@ namespace Data_Compression
                 };
                 result += ((int)algorithm).ToString();
                 result += encodeData;
-                File.WriteAllText(destPath, result);
+                File.WriteAllText(destPath, result, Encoding.UTF8);
                 long compressedLength = new FileInfo(destPath).Length;
                 file = new CompressedFileInfo(Path.GetFileName(destPath), algorithm.ToString(), originalLength, compressedLength);
                 files.Add(file);
@@ -171,9 +166,7 @@ namespace Data_Compression
             }
             if (!losslessJPEG)
             {
-                StreamWriter writer = File.CreateText(destPath);
-                writer.Write(result);
-                writer.Close();
+                File.WriteAllText(destPath, result, Encoding.UTF8);
             }
             else
             {
