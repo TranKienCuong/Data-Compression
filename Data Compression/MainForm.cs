@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 
 namespace Data_Compression
 {
@@ -30,9 +31,21 @@ namespace Data_Compression
                     typeLabel.Text = "File type: Text";
                     break;
                 case ".bmp":
-                    typeLabel.Text = "File type: Bitmap Image";
-                    jpegCheckBox.Visible = true;
-                    jpegCheckBox.Checked = true;
+                    try
+                    {
+                        if (new Bitmap(path).PixelFormat == PixelFormat.Format24bppRgb)
+                        {
+                            typeLabel.Text = "File type: Bitmap Image (24-bit)";
+                            jpegCheckBox.Visible = true;
+                            jpegCheckBox.Checked = true;
+                        }
+                        else
+                            typeLabel.Text = "File type: Bitmap Image (not 24-bit)";
+                    }
+                    catch (Exception e)
+                    {
+                        typeLabel.Text = "File type: Undefined";
+                    };
                     break;
                 case ".cdt":
                     typeLabel.Text = "File type: CDT Compression";
@@ -165,7 +178,7 @@ namespace Data_Compression
             else
             {
                 Bitmap image = new DifferentialImageCoding().Decode(result, width, height);
-                image.Save(destPath);
+                image.Save(destPath, ImageFormat.Bmp);
             }
             Process.Start("explorer.exe", "/select, " + destPath);
         }

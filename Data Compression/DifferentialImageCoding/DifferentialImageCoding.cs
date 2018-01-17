@@ -152,7 +152,7 @@ namespace Data_Compression
             data = data.Substring(4 * unchangedCount);
 
             Color[,] input = Utilities.ConvertStringToColorMatrix(data, width, height);
-            Bitmap output = new Bitmap(width, height);
+            Bitmap output = new Bitmap(width, height, PixelFormat.Format24bppRgb);
             BitmapData outputData = output.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, output.PixelFormat);
             // root pixel
             SetPixel(outputData, 0, 0, input[0, 0]);
@@ -163,7 +163,7 @@ namespace Data_Compression
             // P1 predictor: c1
             for (int i = 1; i < width; i++)
             {
-                Color c1 = input[i - 1, 0];
+                Color c1 = GetPixel(outputData, i - 1, 0);
                 Color c = input[i, 0];
                 int r = unchangedBytes.Contains(i * 3) ? c.R : c.R + c1.R - BIAS;
                 int g = unchangedBytes.Contains(i * 3 + 1) ? c.G : c.G + c1.G - BIAS;
@@ -173,7 +173,7 @@ namespace Data_Compression
             // P2 predictor: c2
             for (int j = 1; j < height; j++)
             {
-                Color c2 = input[0, j - 1];
+                Color c2 = GetPixel(outputData, 0, j - 1);
                 Color c = input[0, j];
                 int r = unchangedBytes.Contains(j * width * 3) ? c.R : c.R + c2.R - BIAS;
                 int g = unchangedBytes.Contains(j * width * 3 + 1) ? c.G : c.G + c2.G - BIAS;
@@ -186,9 +186,9 @@ namespace Data_Compression
                 for (int j = 1; j < height; j++)
                 {
 
-                    Color c1 = input[i - 1, j];
-                    Color c2 = input[i, j - 1];
-                    Color c3 = input[i - 1, j - 1];
+                    Color c1 = GetPixel(outputData, i - 1, j);
+                    Color c2 = GetPixel(outputData, i, j - 1);
+                    Color c3 = GetPixel(outputData, i - 1, j - 1);
                     Color c = input[i, j];
                     int r = unchangedBytes.Contains(j * width * 3 + i * 3) ? c.R : c.R + (c1.R + c2.R - c3.R) - BIAS;
                     int g = unchangedBytes.Contains(j * width * 3 + i * 3 + 1) ? c.G : c.G + (c1.G + c2.G - c3.G) - BIAS;

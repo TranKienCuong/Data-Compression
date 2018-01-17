@@ -261,11 +261,11 @@
             this.jpegCheckBox.AutoSize = true;
             this.jpegCheckBox.Checked = true;
             this.jpegCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.jpegCheckBox.Location = new System.Drawing.Point(263, 147);
+            this.jpegCheckBox.Location = new System.Drawing.Point(314, 147);
             this.jpegCheckBox.Name = "jpegCheckBox";
-            this.jpegCheckBox.Size = new System.Drawing.Size(172, 29);
+            this.jpegCheckBox.Size = new System.Drawing.Size(496, 29);
             this.jpegCheckBox.TabIndex = 17;
-            this.jpegCheckBox.Text = "Lossless JPEG";
+            this.jpegCheckBox.Text = "Lossless JPEG (recommend for 24-bit bitmap image)";
             this.jpegCheckBox.UseVisualStyleBackColor = true;
             this.jpegCheckBox.Visible = false;
             // 
