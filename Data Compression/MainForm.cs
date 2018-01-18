@@ -114,7 +114,7 @@ namespace Data_Compression
                 };
                 if (lzwRadioButton.Checked)
                 {
-                    algorithm = ALGORITHM.LZW;
+                    algorithm = ALGORITHM.LZWCoding;
                     encodeData = new LZWCoding().Encode(data);
                 };
                 if (arithmeticRadioButton.Checked)
@@ -174,7 +174,7 @@ namespace Data_Compression
                 case ALGORITHM.RunLengthCoding:
                     result = new RunLengthCoding().Decode(data);
                     break;
-                case ALGORITHM.LZW:
+                case ALGORITHM.LZWCoding:
                     result = new LZWCoding().Decode(data);
                     break;
                 case ALGORITHM.ArithmeticCoding:
@@ -244,11 +244,12 @@ namespace Data_Compression
             FileStream reader = new FileStream(path, FileMode.Open, FileAccess.Read);
             string ext = "";
             int i = reader.ReadByte();
-            while (i != '\n')
+            while (i != '\r')
             {
                 ext += ((char)i).ToString();
                 i = reader.ReadByte();
             }
+            reader.ReadByte();
             extractSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(path) + ext;
             if (extractSaveFileDialog.ShowDialog() == DialogResult.OK)
             {

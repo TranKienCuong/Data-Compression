@@ -18,7 +18,7 @@ namespace Data_Compression
                 int count = 1;
                 for (int j = i + 1; j < data.Length; j++)
                 {
-                    if (data[i] != data[j])
+                    if (data[i] != data[j] || count == 255)
                         break;
                     count++;
                 }
