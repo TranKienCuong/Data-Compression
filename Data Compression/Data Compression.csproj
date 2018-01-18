@@ -53,6 +53,7 @@
     <Compile Include="CompressedFileInfo.cs" />
     <Compile Include="ArithmeticCoding\FrequencyOfCharacters.cs" />
     <Compile Include="DifferentialImageCoding\DifferentialImageCoding.cs" />
+    <Compile Include="HuffmanCoding\HuffmanCoding.cs" />
     <Compile Include="LZWCoding\LZWCoding.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -63,6 +64,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunLengthCoding\RunLengthCoding.cs" />
+    <Compile Include="ShannonFanoCoding\ShannonFano.cs" />
     <Compile Include="StatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,5 +104,6 @@
   <ItemGroup>
     <None Include="Resources\zipper.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -194,9 +194,9 @@
             this.shannonFanoRadioButton.AutoSize = true;
             this.shannonFanoRadioButton.Location = new System.Drawing.Point(25, 29);
             this.shannonFanoRadioButton.Name = "shannonFanoRadioButton";
-            this.shannonFanoRadioButton.Size = new System.Drawing.Size(169, 29);
+            this.shannonFanoRadioButton.Size = new System.Drawing.Size(237, 29);
             this.shannonFanoRadioButton.TabIndex = 1;
-            this.shannonFanoRadioButton.Text = "Shannon-Fano";
+            this.shannonFanoRadioButton.Text = "Shannon-Fano Coding";
             this.shannonFanoRadioButton.UseVisualStyleBackColor = true;
             // 
             // runLengthRadioButton

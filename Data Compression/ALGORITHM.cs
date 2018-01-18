@@ -8,7 +8,7 @@ namespace Data_Compression
 {
     enum ALGORITHM
     {
-        ShannonFano,
+        ShannonFanoCoding,
         HuffmanCoding,
         AdaptiveHuffmanCoding,
         RunLengthCoding,

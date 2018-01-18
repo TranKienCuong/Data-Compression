@@ -13,7 +13,7 @@ namespace Data_Compression
     {
         const int BIAS = 128;
 
-        public string Encode(Bitmap input)
+        public byte[] Encode(Bitmap input)
         {
             StringBuilder result = new StringBuilder("");
 
@@ -127,11 +127,12 @@ namespace Data_Compression
             }
             result.Append(Utilities.ConvertColorMatrixToString(output, width, height));
             Console.WriteLine(unchangedBytes.Count);
-            return result.ToString();
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        public Bitmap Decode(string data, int width, int height)
+        public Bitmap Decode(byte[] dataArray, int width, int height)
         {
+            string data = Utilities.ConvertBytesToString(dataArray);
             HashSet<int> unchangedBytes = new HashSet<int>();
             StringBuilder binary = new StringBuilder("");
             binary.Append(Utilities.ConvertIntegerToBinaryString(data[0], 8));

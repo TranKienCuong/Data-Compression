@@ -72,22 +72,29 @@ namespace Data_Compression
             else
             {
                 CompressedFileInfo file = new CompressedFileInfo();
-                
+                string header = Path.GetExtension(sourcePath) + "\r\n";
                 byte[] data = new byte[0];
                 if (!losslessJPEG)
                     data = File.ReadAllBytes(sourcePath);
                 else
                 {
                     Bitmap image = new Bitmap(sourcePath);
-                    //data = new DifferentialImageCoding().Encode(image);
-                    //result += ((int)ALGORITHM.DifferentialImageCoding).ToString();
-                    //result += ((char)image.Width).ToString() + ((char)image.Height).ToString();
+                    data = new DifferentialImageCoding().Encode(image);
+                    header += ((int)ALGORITHM.DifferentialImageCoding).ToString();
+                    //header += ((char)image.Width).ToString() + ((char)image.Height).ToString();
+                    string s1 = Utilities.ConvertIntegerToBinaryString(image.Width, 16);
+                    string s2 = Utilities.ConvertIntegerToBinaryString(image.Height, 16);
+                    int i1 = Utilities.ConvertBinaryStringToInteger(s1.Substring(0, 8));
+                    int i2 = Utilities.ConvertBinaryStringToInteger(s1.Substring(8, 8));
+                    int i3 = Utilities.ConvertBinaryStringToInteger(s2.Substring(0, 8));
+                    int i4 = Utilities.ConvertBinaryStringToInteger(s2.Substring(8, 8));
+                    header += ((char)i1).ToString() + ((char)i2).ToString() + ((char)i3).ToString() + ((char)i4).ToString();
                 }
                 ALGORITHM algorithm = 0;
                 byte[] encodeData = new byte[0];
                 if (shannonFanoRadioButton.Checked)
                 {
-                    algorithm = ALGORITHM.ShannonFano;
+                    algorithm = ALGORITHM.ShannonFanoCoding;
                     // to do
                 };
                 if (huffmanRadioButton.Checked)
@@ -115,7 +122,7 @@ namespace Data_Compression
                     algorithm = ALGORITHM.ArithmeticCoding;
                     //encodeData = new ArithmeticCoding().Encode(data);
                 };
-                string header = Path.GetExtension(sourcePath) + "\r\n" + ((int)algorithm).ToString();
+                header += ((int)algorithm).ToString();
                 FileStream writer = new FileStream(destPath, FileMode.Create, FileAccess.Write);
                 byte[] headerData = Utilities.ConvertStringToBytes(header);
                 writer.Write(headerData, 0, headerData.Length);
@@ -155,7 +162,7 @@ namespace Data_Compression
             byte[] result = new byte[0];
             switch (algorithm)
             {
-                case ALGORITHM.ShannonFano:
+                case ALGORITHM.ShannonFanoCoding:
                     // to do
                     break;
                 case ALGORITHM.HuffmanCoding:
@@ -180,8 +187,7 @@ namespace Data_Compression
             }
             else
             {
-                string imageString = Utilities.ConvertBytesToString(result);
-                Bitmap image = new DifferentialImageCoding().Decode(imageString, width, height);
+                Bitmap image = new DifferentialImageCoding().Decode(result, width, height);
                 image.Save(destPath, ImageFormat.Bmp);
             }
             Process.Start("explorer.exe", "/select, " + destPath);
@@ -253,7 +259,6 @@ namespace Data_Compression
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
-            Utilities.Check();
         }
     }
 }
