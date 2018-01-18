@@ -64,7 +64,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunLengthCoding\RunLengthCoding.cs" />
-    <Compile Include="ShannonFanoCoding\ShannonFano.cs" />
+    <Compile Include="ShannonFanoCoding\ShannonFanoCoding.cs" />
+    <Compile Include="Symbol.cs" />
+    <Compile Include="SymbolComparer.cs" />
     <Compile Include="StatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>

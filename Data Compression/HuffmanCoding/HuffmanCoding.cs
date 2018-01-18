@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data_Compression.HuffmanCoding
+namespace Data_Compression
 {
     public class HuffmanCoding
     {

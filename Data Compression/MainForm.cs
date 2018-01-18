@@ -81,7 +81,6 @@ namespace Data_Compression
                     Bitmap image = new Bitmap(sourcePath);
                     data = new DifferentialImageCoding().Encode(image);
                     header += ((int)ALGORITHM.DifferentialImageCoding).ToString();
-                    //header += ((char)image.Width).ToString() + ((char)image.Height).ToString();
                     string s1 = Utilities.ConvertIntegerToBinaryString(image.Width, 16);
                     string s2 = Utilities.ConvertIntegerToBinaryString(image.Height, 16);
                     int i1 = Utilities.ConvertBinaryStringToInteger(s1.Substring(0, 8));
