@@ -9,12 +9,12 @@ namespace Data_Compression
 {
     public class RunLengthCoding
     {
-        public string Encode(string data)
+        public byte[] Encode(byte[] data)
         {
             StringBuilder result = new StringBuilder("");
             for (int i = 0; i < data.Length;)
             {
-                char c = data[i];
+                char c = (char)data[i];
                 int count = 1;
                 for (int j = i + 1; j < data.Length; j++)
                 {
@@ -26,20 +26,19 @@ namespace Data_Compression
                 result.Append((char)count);
                 i += count;
             }
-            return result.ToString();
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        public string Decode(string data)
+        public byte[] Decode(byte[] data)
         {
             StringBuilder result = new StringBuilder("");
             for (int i = 0; i < data.Length; i += 2)
             {
-                char c = data[i];
+                char c = (char)data[i];
                 int count = data[i + 1];
-                for (int j = 0; j < count; j++)
-                    result.Append(c);
+                result.Append(c, count);
             }
-            return result.ToString();
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
     }
 }

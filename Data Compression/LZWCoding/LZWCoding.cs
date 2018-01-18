@@ -8,7 +8,7 @@ namespace Data_Compression
 {
     public class LZWCoding
     {
-        public string Encode(string data)
+        public byte[] Encode(byte[] data)
         {
             StringBuilder result = new StringBuilder("");
             List<int> output = new List<int>();
@@ -16,10 +16,10 @@ namespace Data_Compression
             int code;
             for (code = 0; code < 256; code++)
                 dictionary.Add(((char)code).ToString(), code);
-            string s = data[0].ToString();
+            string s = ((char)data[0]).ToString();
             for (int i = 1; i < data.Length; i++)
             {
-                char c = data[i];
+                char c = (char)data[i];
                 if (dictionary.ContainsKey(s + c.ToString()))
                 {
                     s = s + c.ToString();
@@ -38,15 +38,16 @@ namespace Data_Compression
                 bitLength++;
             result.Append((char)bitLength);
             result.Append(ConvertIntsToString(output, bitLength));
-            return result.ToString();
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        public string Decode(string data)
+        public byte[] Decode(byte[] data)
         {
-            int bitLength = data[0];
-            data = data.Substring(1);
+            string dataString = Utilities.ConvertBytesToString(data);
+            int bitLength = dataString[0];
+            dataString = dataString.Substring(1);
             StringBuilder result = new StringBuilder("");
-            List<int> input = ConvertStringToInts(data, bitLength);
+            List<int> input = ConvertStringToInts(dataString, bitLength);
             Dictionary<int, string> dictionary = new Dictionary<int, string>();
             int code;
             for (code = 0; code < 256; code++)
@@ -67,7 +68,7 @@ namespace Data_Compression
                 }
                 s = entry;
             }
-            return result.ToString();
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
 
         string ConvertIntsToString(List<int> ints, int bitLength)

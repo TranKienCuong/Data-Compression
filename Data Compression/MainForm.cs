@@ -72,20 +72,19 @@ namespace Data_Compression
             else
             {
                 CompressedFileInfo file = new CompressedFileInfo();
-                string result = Path.GetExtension(sourcePath) + "\r\n";
                 
-                string data;
+                byte[] data = new byte[0];
                 if (!losslessJPEG)
-                    data = File.ReadAllText(sourcePath);
+                    data = File.ReadAllBytes(sourcePath);
                 else
                 {
                     Bitmap image = new Bitmap(sourcePath);
-                    data = new DifferentialImageCoding().Encode(image);
-                    result += ((int)ALGORITHM.DifferentialImageCoding).ToString();
-                    result += ((char)image.Width).ToString() + ((char)image.Height).ToString();
+                    //data = new DifferentialImageCoding().Encode(image);
+                    //result += ((int)ALGORITHM.DifferentialImageCoding).ToString();
+                    //result += ((char)image.Width).ToString() + ((char)image.Height).ToString();
                 }
                 ALGORITHM algorithm = 0;
-                string encodeData = "";
+                byte[] encodeData = new byte[0];
                 if (shannonFanoRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ShannonFano;
@@ -114,11 +113,15 @@ namespace Data_Compression
                 if (arithmeticRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ArithmeticCoding;
-                    encodeData = new ArithmeticCoding().Encode(data);
+                    //encodeData = new ArithmeticCoding().Encode(data);
                 };
-                result += ((int)algorithm).ToString();
-                result += encodeData;
-                File.WriteAllText(destPath, result, Encoding.UTF8);
+                string header = Path.GetExtension(sourcePath) + "\r\n" + ((int)algorithm).ToString();
+                FileStream writer = new FileStream(destPath, FileMode.Create, FileAccess.Write);
+                byte[] headerData = Utilities.ConvertStringToBytes(header);
+                writer.Write(headerData, 0, headerData.Length);
+                writer.Write(encodeData, 0, encodeData.Length);
+                writer.Close();
+
                 long compressedLength = new FileInfo(destPath).Length;
                 file = new CompressedFileInfo(Path.GetFileName(destPath), algorithm.ToString(), originalLength, compressedLength);
                 files.Add(file);
@@ -126,23 +129,30 @@ namespace Data_Compression
             new StatisticsForm(Path.GetDirectoryName(destPath), files).Show();
         }
 
-        void DoExtraction(StreamReader reader)
+        void DoExtraction(FileStream reader)
         {
             string sourcePath = pathTextBox.Text;
             string destPath = extractSaveFileDialog.FileName;
-            ALGORITHM algorithm = (ALGORITHM)(reader.Read() - '0');
+            ALGORITHM algorithm = (ALGORITHM)(reader.ReadByte() - '0');
             bool losslessJPEG = false;
             int width = 0, height = 0;
             if (algorithm == ALGORITHM.DifferentialImageCoding)
             {
                 losslessJPEG = true;
-                width = reader.Read();
-                height = reader.Read();
-                algorithm = (ALGORITHM)(reader.Read() - '0');
+                int i1 = reader.ReadByte();
+                int i2 = reader.ReadByte();
+                int i3 = reader.ReadByte();
+                int i4 = reader.ReadByte();
+                string s1 = Utilities.ConvertIntegerToBinaryString(i1) + Utilities.ConvertIntegerToBinaryString(i2);
+                string s2 = Utilities.ConvertIntegerToBinaryString(i3) + Utilities.ConvertIntegerToBinaryString(i4);
+                width = Utilities.ConvertBinaryStringToInteger(s1);
+                height = Utilities.ConvertBinaryStringToInteger(s2);
+                algorithm = (ALGORITHM)(reader.ReadByte() - '0');
             }
-            string data = reader.ReadToEnd();
+            byte[] data = new byte[reader.Length - reader.Position];
+            reader.Read(data, 0, data.Length);
             reader.Close();
-            string result = "";
+            byte[] result = new byte[0];
             switch (algorithm)
             {
                 case ALGORITHM.ShannonFano:
@@ -161,16 +171,17 @@ namespace Data_Compression
                     result = new LZWCoding().Decode(data);
                     break;
                 case ALGORITHM.ArithmeticCoding:
-                    result = new ArithmeticCoding().Decode(data);
+                    //result = new ArithmeticCoding().Decode(data);
                     break;
             }
             if (!losslessJPEG)
             {
-                File.WriteAllText(destPath, result, Encoding.UTF8);
+                File.WriteAllBytes(destPath, result);
             }
             else
             {
-                Bitmap image = new DifferentialImageCoding().Decode(result, width, height);
+                string imageString = Utilities.ConvertBytesToString(result);
+                Bitmap image = new DifferentialImageCoding().Decode(imageString, width, height);
                 image.Save(destPath, ImageFormat.Bmp);
             }
             Process.Start("explorer.exe", "/select, " + destPath);
@@ -224,8 +235,14 @@ namespace Data_Compression
         private void extractButton_Click(object sender, EventArgs e)
         {
             string path = pathTextBox.Text;
-            StreamReader reader = File.OpenText(path);
-            string ext = reader.ReadLine();
+            FileStream reader = new FileStream(path, FileMode.Open, FileAccess.Read);
+            string ext = "";
+            int i = reader.ReadByte();
+            while (i != '\n')
+            {
+                ext += ((char)i).ToString();
+                i = reader.ReadByte();
+            }
             extractSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(path) + ext;
             if (extractSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -236,6 +253,7 @@ namespace Data_Compression
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
+            Utilities.Check();
         }
     }
 }

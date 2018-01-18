@@ -113,38 +113,69 @@ namespace Data_Compression
         }
 
         /// <summary>
-        /// get encoding of a file
-        /// </summary>
-        /// <param name="filePath">file path</param>
-        /// <returns></returns>
-        public static Encoding GetEncoding(string filePath)
-        {
-            StreamReader reader = new StreamReader(filePath);
-            reader.Peek();
-            return reader.CurrentEncoding;
-        }
-
-        /// <summary>
-        /// get encoding of a file
+        /// get encoding (ASCII, Unicode or UTF-8) of a file
         /// </summary>
         /// <param name="filename">file path</param>
         /// <returns></returns>
-        public static Encoding GetEncoding2(string filename)
+        public static Encoding GetEncoding(string filename)
         {
-            // Read the BOM
             var bom = new byte[4];
             using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
                 file.Read(bom, 0, 4);
             }
 
-            // Analyze the BOM
             if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) return Encoding.UTF7;
             if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) return Encoding.UTF8;
             if (bom[0] == 0xff && bom[1] == 0xfe) return Encoding.Unicode; //UTF-16LE
             if (bom[0] == 0xfe && bom[1] == 0xff) return Encoding.BigEndianUnicode; //UTF-16BE
             if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) return Encoding.UTF32;
             return Encoding.ASCII;
+        }
+        
+        /// <summary>
+        /// convert a string to an array of bytes
+        /// </summary>
+        /// <param name="input">input string</param>
+        /// <returns></returns>
+        public static byte[] ConvertStringToBytes(string input)
+        {
+            byte[] bytes = new byte[input.Length];
+            for (int i = 0; i < input.Length; i++)
+            {
+                byte current = Convert.ToByte(input[i]);
+                bytes[i] = current;
+            }
+            return bytes;
+        }
+
+        /// <summary>
+        /// convert an array of bytes to a string
+        /// </summary>
+        /// <param name="input">array of bytes</param>
+        /// <returns></returns>
+        public static string ConvertBytesToString(byte[] input)
+        {
+            StringBuilder result = new StringBuilder("");
+            for (int i = 0; i < input.Length; i++)
+            {
+                result.Append((char)input[i]);
+            }
+            return result.ToString();
+        }
+
+        public static void Check()
+        {
+            byte[] a = new byte[94];
+            FileStream fs = new FileStream("C:\\Users\\Kien Cuong\\Documents\\KIEN CUONG\\TINH TOAN DA PHUONG TIEN\\Project\\utf8.txt", FileMode.Open, FileAccess.Read);
+            fs.Read(a, 0, 94);
+            byte[] b = new byte[94];
+            FileStream fs2 = new FileStream("C:\\Users\\Kien Cuong\\Documents\\KIEN CUONG\\TINH TOAN DA PHUONG TIEN\\Project\\utf8-2.txt", FileMode.Open, FileAccess.Read);
+            fs2.Read(b, 0, 94);
+            for (int i = 0; i < a.Length; i++)
+            {
+                Console.WriteLine("({0}, {1})", a[i], b[i]);
+            }
         }
     }
 }
