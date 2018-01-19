@@ -54,6 +54,8 @@
     <Compile Include="ArithmeticCoding\FrequencyOfCharacters.cs" />
     <Compile Include="DifferentialImageCoding\DifferentialImageCoding.cs" />
     <Compile Include="HuffmanCoding\HuffmanCoding.cs" />
+    <Compile Include="HuffmanCoding\Node.cs" />
+    <Compile Include="HuffmanCoding\NodeComparer.cs" />
     <Compile Include="LZWCoding\LZWCoding.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

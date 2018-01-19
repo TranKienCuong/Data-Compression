@@ -8,17 +8,17 @@ namespace Data_Compression
 {
     public class Symbol
     {
-        public byte Data;
+        public int Data;
         public int Frequency;
 
         public Symbol() { }
 
-        public Symbol(byte data)
+        public Symbol(int data)
         {
             this.Data = data;
         }
 
-        public Symbol(byte data, int frequency)
+        public Symbol(int data, int frequency)
         {
             this.Data = data;
             this.Frequency = frequency;

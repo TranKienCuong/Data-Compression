@@ -28,9 +28,6 @@ namespace Data_Compression
             Dictionary<Symbol, string> codeWords = new Dictionary<Symbol, string>();
             BuildCodeWords(symbols, codeWords, 0, symbols.Count, n, "");
 
-            for (int i = 0; i < symbols.Count; i++)
-                Console.WriteLine("{0}, {1}", (char)symbols[i].Data, codeWords[symbols[i]]);
-
             result.Append((char)(symbols.Count - 1));
             for (int i = 0; i < symbols.Count; i++)
             {
