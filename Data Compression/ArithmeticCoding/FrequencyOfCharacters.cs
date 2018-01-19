@@ -9,280 +9,266 @@ namespace Data_Compression
 {
     public static class FrequencyOfCharacters
     {
-        public static Dictionary<int, int> FREQUENCY;
         public static Dictionary<int, Tuple<double, double>> RANGES;
-        public static int COUNT;
 
         public static void Init()
         {
-            FREQUENCY = new Dictionary<int, int>();
-            COUNT = 0;
-            FREQUENCY[0] = 1; COUNT += FREQUENCY[0]; //  
-            FREQUENCY[1] = 1; COUNT += FREQUENCY[1]; // 
-            FREQUENCY[2] = 1; COUNT += FREQUENCY[2]; // 
-            FREQUENCY[3] = 1; COUNT += FREQUENCY[3]; // 
-            FREQUENCY[4] = 1; COUNT += FREQUENCY[4]; // 
-            FREQUENCY[5] = 1; COUNT += FREQUENCY[5]; // 
-            FREQUENCY[6] = 1; COUNT += FREQUENCY[6]; // 
-            FREQUENCY[7] = 1; COUNT += FREQUENCY[7]; // 
-            FREQUENCY[8] = 1; COUNT += FREQUENCY[8]; // 
-            FREQUENCY[9] = 1; COUNT += FREQUENCY[9]; // 	
-            FREQUENCY[10] = 1; COUNT += FREQUENCY[10]; // break line
-            FREQUENCY[11] = 1; COUNT += FREQUENCY[11]; // 
-            FREQUENCY[12] = 1; COUNT += FREQUENCY[12]; // 
-            FREQUENCY[13] = 1; COUNT += FREQUENCY[13]; // break line
-            FREQUENCY[14] = 1; COUNT += FREQUENCY[14]; // 
-            FREQUENCY[15] = 1; COUNT += FREQUENCY[15]; // 
-            FREQUENCY[16] = 1; COUNT += FREQUENCY[16]; // 
-            FREQUENCY[17] = 1; COUNT += FREQUENCY[17]; // 
-            FREQUENCY[18] = 1; COUNT += FREQUENCY[18]; // 
-            FREQUENCY[19] = 1; COUNT += FREQUENCY[19]; // 
-            FREQUENCY[20] = 1; COUNT += FREQUENCY[20]; // 
-            FREQUENCY[21] = 1; COUNT += FREQUENCY[21]; // 
-            FREQUENCY[22] = 1; COUNT += FREQUENCY[22]; // 
-            FREQUENCY[23] = 1; COUNT += FREQUENCY[23]; // 
-            FREQUENCY[24] = 1; COUNT += FREQUENCY[24]; // 
-            FREQUENCY[25] = 1; COUNT += FREQUENCY[25]; // 
-            FREQUENCY[26] = 1; COUNT += FREQUENCY[26]; // 
-            FREQUENCY[27] = 1; COUNT += FREQUENCY[27]; // 
-            FREQUENCY[28] = 1; COUNT += FREQUENCY[28]; // 
-            FREQUENCY[29] = 1; COUNT += FREQUENCY[29]; // 
-            FREQUENCY[30] = 1; COUNT += FREQUENCY[30]; // 
-            FREQUENCY[31] = 1; COUNT += FREQUENCY[31]; // 
-            FREQUENCY[32] = 1; COUNT += FREQUENCY[32]; //  
-            FREQUENCY[33] = 1; COUNT += FREQUENCY[33]; // !
-            FREQUENCY[34] = 1; COUNT += FREQUENCY[34]; // "
-            FREQUENCY[35] = 1; COUNT += FREQUENCY[35]; // #
-            FREQUENCY[36] = 1; COUNT += FREQUENCY[36]; // $
-            FREQUENCY[37] = 1; COUNT += FREQUENCY[37]; // %
-            FREQUENCY[38] = 1; COUNT += FREQUENCY[38]; // &
-            FREQUENCY[39] = 1; COUNT += FREQUENCY[39]; // '
-            FREQUENCY[40] = 1; COUNT += FREQUENCY[40]; // (
-            FREQUENCY[41] = 1; COUNT += FREQUENCY[41]; // )
-            FREQUENCY[42] = 1; COUNT += FREQUENCY[42]; // *
-            FREQUENCY[43] = 1; COUNT += FREQUENCY[43]; // +
-            FREQUENCY[44] = 1; COUNT += FREQUENCY[44]; // ,
-            FREQUENCY[45] = 1; COUNT += FREQUENCY[45]; // -
-            FREQUENCY[46] = 1; COUNT += FREQUENCY[46]; // .
-            FREQUENCY[47] = 1; COUNT += FREQUENCY[47]; // /
-            FREQUENCY[48] = 1; COUNT += FREQUENCY[48]; // 0
-            FREQUENCY[49] = 1; COUNT += FREQUENCY[49]; // 1
-            FREQUENCY[50] = 1; COUNT += FREQUENCY[50]; // 2
-            FREQUENCY[51] = 1; COUNT += FREQUENCY[51]; // 3
-            FREQUENCY[52] = 1; COUNT += FREQUENCY[52]; // 4
-            FREQUENCY[53] = 1; COUNT += FREQUENCY[53]; // 5
-            FREQUENCY[54] = 1; COUNT += FREQUENCY[54]; // 6
-            FREQUENCY[55] = 1; COUNT += FREQUENCY[55]; // 7
-            FREQUENCY[56] = 1; COUNT += FREQUENCY[56]; // 8
-            FREQUENCY[57] = 1; COUNT += FREQUENCY[57]; // 9
-            FREQUENCY[58] = 1; COUNT += FREQUENCY[58]; // :
-            FREQUENCY[59] = 1; COUNT += FREQUENCY[59]; // ;
-            FREQUENCY[60] = 1; COUNT += FREQUENCY[60]; // <
-            FREQUENCY[61] = 1; COUNT += FREQUENCY[61]; // =
-            FREQUENCY[62] = 1; COUNT += FREQUENCY[62]; // >
-            FREQUENCY[63] = 1; COUNT += FREQUENCY[63]; // ?
-            FREQUENCY[64] = 1; COUNT += FREQUENCY[64]; // @
-            FREQUENCY[65] = 1; COUNT += FREQUENCY[65]; // A
-            FREQUENCY[66] = 1; COUNT += FREQUENCY[66]; // B
-            FREQUENCY[67] = 1; COUNT += FREQUENCY[67]; // C
-            FREQUENCY[68] = 1; COUNT += FREQUENCY[68]; // D
-            FREQUENCY[69] = 1; COUNT += FREQUENCY[69]; // E
-            FREQUENCY[70] = 1; COUNT += FREQUENCY[70]; // F
-            FREQUENCY[71] = 1; COUNT += FREQUENCY[71]; // G
-            FREQUENCY[72] = 1; COUNT += FREQUENCY[72]; // H
-            FREQUENCY[73] = 1; COUNT += FREQUENCY[73]; // I
-            FREQUENCY[74] = 1; COUNT += FREQUENCY[74]; // J
-            FREQUENCY[75] = 1; COUNT += FREQUENCY[75]; // K
-            FREQUENCY[76] = 1; COUNT += FREQUENCY[76]; // L
-            FREQUENCY[77] = 1; COUNT += FREQUENCY[77]; // M
-            FREQUENCY[78] = 1; COUNT += FREQUENCY[78]; // N
-            FREQUENCY[79] = 1; COUNT += FREQUENCY[79]; // O
-            FREQUENCY[80] = 1; COUNT += FREQUENCY[80]; // P
-            FREQUENCY[81] = 1; COUNT += FREQUENCY[81]; // Q
-            FREQUENCY[82] = 1; COUNT += FREQUENCY[82]; // R
-            FREQUENCY[83] = 1; COUNT += FREQUENCY[83]; // S
-            FREQUENCY[84] = 1; COUNT += FREQUENCY[84]; // T
-            FREQUENCY[85] = 1; COUNT += FREQUENCY[85]; // U
-            FREQUENCY[86] = 1; COUNT += FREQUENCY[86]; // V
-            FREQUENCY[87] = 1; COUNT += FREQUENCY[87]; // W
-            FREQUENCY[88] = 1; COUNT += FREQUENCY[88]; // X
-            FREQUENCY[89] = 1; COUNT += FREQUENCY[89]; // Y
-            FREQUENCY[90] = 1; COUNT += FREQUENCY[90]; // Z
-            FREQUENCY[91] = 1; COUNT += FREQUENCY[91]; // [
-            FREQUENCY[92] = 1; COUNT += FREQUENCY[92]; // \
-            FREQUENCY[93] = 1; COUNT += FREQUENCY[93]; // ]
-            FREQUENCY[94] = 1; COUNT += FREQUENCY[94]; // ^
-            FREQUENCY[95] = 1; COUNT += FREQUENCY[95]; // _
-            FREQUENCY[96] = 1; COUNT += FREQUENCY[96]; // `
-            FREQUENCY[97] = 1; COUNT += FREQUENCY[97]; // a
-            FREQUENCY[98] = 1; COUNT += FREQUENCY[98]; // b
-            FREQUENCY[99] = 1; COUNT += FREQUENCY[99]; // c
-            FREQUENCY[100] = 1; COUNT += FREQUENCY[100]; // d
-            FREQUENCY[101] = 1; COUNT += FREQUENCY[101]; // e
-            FREQUENCY[102] = 1; COUNT += FREQUENCY[102]; // f
-            FREQUENCY[103] = 1; COUNT += FREQUENCY[103]; // g
-            FREQUENCY[104] = 1; COUNT += FREQUENCY[104]; // h
-            FREQUENCY[105] = 1; COUNT += FREQUENCY[105]; // i
-            FREQUENCY[106] = 1; COUNT += FREQUENCY[106]; // j
-            FREQUENCY[107] = 1; COUNT += FREQUENCY[107]; // k
-            FREQUENCY[108] = 1; COUNT += FREQUENCY[108]; // l
-            FREQUENCY[109] = 1; COUNT += FREQUENCY[109]; // m
-            FREQUENCY[110] = 1; COUNT += FREQUENCY[110]; // n
-            FREQUENCY[111] = 1; COUNT += FREQUENCY[111]; // o
-            FREQUENCY[112] = 1; COUNT += FREQUENCY[112]; // p
-            FREQUENCY[113] = 1; COUNT += FREQUENCY[113]; // q
-            FREQUENCY[114] = 1; COUNT += FREQUENCY[114]; // r
-            FREQUENCY[115] = 1; COUNT += FREQUENCY[115]; // s
-            FREQUENCY[116] = 1; COUNT += FREQUENCY[116]; // t
-            FREQUENCY[117] = 1; COUNT += FREQUENCY[117]; // u
-            FREQUENCY[118] = 1; COUNT += FREQUENCY[118]; // v
-            FREQUENCY[119] = 1; COUNT += FREQUENCY[119]; // w
-            FREQUENCY[120] = 1; COUNT += FREQUENCY[120]; // x
-            FREQUENCY[121] = 1; COUNT += FREQUENCY[121]; // y
-            FREQUENCY[122] = 1; COUNT += FREQUENCY[122]; // z
-            FREQUENCY[123] = 1; COUNT += FREQUENCY[123]; // {
-            FREQUENCY[124] = 1; COUNT += FREQUENCY[124]; // |
-            FREQUENCY[125] = 1; COUNT += FREQUENCY[125]; // }
-            FREQUENCY[126] = 1; COUNT += FREQUENCY[126]; // ~
-            FREQUENCY[127] = 1; COUNT += FREQUENCY[127]; // 
-            FREQUENCY[128] = 1; COUNT += FREQUENCY[128]; // 
-            FREQUENCY[129] = 1; COUNT += FREQUENCY[129]; // 
-            FREQUENCY[130] = 1; COUNT += FREQUENCY[130]; // 
-            FREQUENCY[131] = 1; COUNT += FREQUENCY[131]; // 
-            FREQUENCY[132] = 1; COUNT += FREQUENCY[132]; // 
-            FREQUENCY[133] = 1; COUNT += FREQUENCY[133]; // 
-            FREQUENCY[134] = 1; COUNT += FREQUENCY[134]; // 
-            FREQUENCY[135] = 1; COUNT += FREQUENCY[135]; // 
-            FREQUENCY[136] = 1; COUNT += FREQUENCY[136]; // 
-            FREQUENCY[137] = 1; COUNT += FREQUENCY[137]; // 
-            FREQUENCY[138] = 1; COUNT += FREQUENCY[138]; // 
-            FREQUENCY[139] = 1; COUNT += FREQUENCY[139]; // 
-            FREQUENCY[140] = 1; COUNT += FREQUENCY[140]; // 
-            FREQUENCY[141] = 1; COUNT += FREQUENCY[141]; // 
-            FREQUENCY[142] = 1; COUNT += FREQUENCY[142]; // 
-            FREQUENCY[143] = 1; COUNT += FREQUENCY[143]; // 
-            FREQUENCY[144] = 1; COUNT += FREQUENCY[144]; // 
-            FREQUENCY[145] = 1; COUNT += FREQUENCY[145]; // 
-            FREQUENCY[146] = 1; COUNT += FREQUENCY[146]; // 
-            FREQUENCY[147] = 1; COUNT += FREQUENCY[147]; // 
-            FREQUENCY[148] = 1; COUNT += FREQUENCY[148]; // 
-            FREQUENCY[149] = 1; COUNT += FREQUENCY[149]; // 
-            FREQUENCY[150] = 1; COUNT += FREQUENCY[150]; // 
-            FREQUENCY[151] = 1; COUNT += FREQUENCY[151]; // 
-            FREQUENCY[152] = 1; COUNT += FREQUENCY[152]; // 
-            FREQUENCY[153] = 1; COUNT += FREQUENCY[153]; // 
-            FREQUENCY[154] = 1; COUNT += FREQUENCY[154]; // 
-            FREQUENCY[155] = 1; COUNT += FREQUENCY[155]; // 
-            FREQUENCY[156] = 1; COUNT += FREQUENCY[156]; // 
-            FREQUENCY[157] = 1; COUNT += FREQUENCY[157]; // 
-            FREQUENCY[158] = 1; COUNT += FREQUENCY[158]; // 
-            FREQUENCY[159] = 1; COUNT += FREQUENCY[159]; // 
-            FREQUENCY[160] = 1; COUNT += FREQUENCY[160]; //  
-            FREQUENCY[161] = 1; COUNT += FREQUENCY[161]; // ¡
-            FREQUENCY[162] = 1; COUNT += FREQUENCY[162]; // ¢
-            FREQUENCY[163] = 1; COUNT += FREQUENCY[163]; // £
-            FREQUENCY[164] = 1; COUNT += FREQUENCY[164]; // ¤
-            FREQUENCY[165] = 1; COUNT += FREQUENCY[165]; // ¥
-            FREQUENCY[166] = 1; COUNT += FREQUENCY[166]; // ¦
-            FREQUENCY[167] = 1; COUNT += FREQUENCY[167]; // §
-            FREQUENCY[168] = 1; COUNT += FREQUENCY[168]; // ¨
-            FREQUENCY[169] = 1; COUNT += FREQUENCY[169]; // ©
-            FREQUENCY[170] = 1; COUNT += FREQUENCY[170]; // ª
-            FREQUENCY[171] = 1; COUNT += FREQUENCY[171]; // «
-            FREQUENCY[172] = 1; COUNT += FREQUENCY[172]; // ¬
-            FREQUENCY[173] = 1; COUNT += FREQUENCY[173]; // ­
-            FREQUENCY[174] = 1; COUNT += FREQUENCY[174]; // ®
-            FREQUENCY[175] = 1; COUNT += FREQUENCY[175]; // ¯
-            FREQUENCY[176] = 1; COUNT += FREQUENCY[176]; // °
-            FREQUENCY[177] = 1; COUNT += FREQUENCY[177]; // ±
-            FREQUENCY[178] = 1; COUNT += FREQUENCY[178]; // ²
-            FREQUENCY[179] = 1; COUNT += FREQUENCY[179]; // ³
-            FREQUENCY[180] = 1; COUNT += FREQUENCY[180]; // ´
-            FREQUENCY[181] = 1; COUNT += FREQUENCY[181]; // µ
-            FREQUENCY[182] = 1; COUNT += FREQUENCY[182]; // ¶
-            FREQUENCY[183] = 1; COUNT += FREQUENCY[183]; // ·
-            FREQUENCY[184] = 1; COUNT += FREQUENCY[184]; // ¸
-            FREQUENCY[185] = 1; COUNT += FREQUENCY[185]; // ¹
-            FREQUENCY[186] = 1; COUNT += FREQUENCY[186]; // º
-            FREQUENCY[187] = 1; COUNT += FREQUENCY[187]; // »
-            FREQUENCY[188] = 1; COUNT += FREQUENCY[188]; // ¼
-            FREQUENCY[189] = 1; COUNT += FREQUENCY[189]; // ½
-            FREQUENCY[190] = 1; COUNT += FREQUENCY[190]; // ¾
-            FREQUENCY[191] = 1; COUNT += FREQUENCY[191]; // ¿
-            FREQUENCY[192] = 1; COUNT += FREQUENCY[192]; // À
-            FREQUENCY[193] = 1; COUNT += FREQUENCY[193]; // Á
-            FREQUENCY[194] = 1; COUNT += FREQUENCY[194]; // Â
-            FREQUENCY[195] = 1; COUNT += FREQUENCY[195]; // Ã
-            FREQUENCY[196] = 1; COUNT += FREQUENCY[196]; // Ä
-            FREQUENCY[197] = 1; COUNT += FREQUENCY[197]; // Å
-            FREQUENCY[198] = 1; COUNT += FREQUENCY[198]; // Æ
-            FREQUENCY[199] = 1; COUNT += FREQUENCY[199]; // Ç
-            FREQUENCY[200] = 1; COUNT += FREQUENCY[200]; // È
-            FREQUENCY[201] = 1; COUNT += FREQUENCY[201]; // É
-            FREQUENCY[202] = 1; COUNT += FREQUENCY[202]; // Ê
-            FREQUENCY[203] = 1; COUNT += FREQUENCY[203]; // Ë
-            FREQUENCY[204] = 1; COUNT += FREQUENCY[204]; // Ì
-            FREQUENCY[205] = 1; COUNT += FREQUENCY[205]; // Í
-            FREQUENCY[206] = 1; COUNT += FREQUENCY[206]; // Î
-            FREQUENCY[207] = 1; COUNT += FREQUENCY[207]; // Ï
-            FREQUENCY[208] = 1; COUNT += FREQUENCY[208]; // Ð
-            FREQUENCY[209] = 1; COUNT += FREQUENCY[209]; // Ñ
-            FREQUENCY[210] = 1; COUNT += FREQUENCY[210]; // Ò
-            FREQUENCY[211] = 1; COUNT += FREQUENCY[211]; // Ó
-            FREQUENCY[212] = 1; COUNT += FREQUENCY[212]; // Ô
-            FREQUENCY[213] = 1; COUNT += FREQUENCY[213]; // Õ
-            FREQUENCY[214] = 1; COUNT += FREQUENCY[214]; // Ö
-            FREQUENCY[215] = 1; COUNT += FREQUENCY[215]; // ×
-            FREQUENCY[216] = 1; COUNT += FREQUENCY[216]; // Ø
-            FREQUENCY[217] = 1; COUNT += FREQUENCY[217]; // Ù
-            FREQUENCY[218] = 1; COUNT += FREQUENCY[218]; // Ú
-            FREQUENCY[219] = 1; COUNT += FREQUENCY[219]; // Û
-            FREQUENCY[220] = 1; COUNT += FREQUENCY[220]; // Ü
-            FREQUENCY[221] = 1; COUNT += FREQUENCY[221]; // Ý
-            FREQUENCY[222] = 1; COUNT += FREQUENCY[222]; // Þ
-            FREQUENCY[223] = 1; COUNT += FREQUENCY[223]; // ß
-            FREQUENCY[224] = 1; COUNT += FREQUENCY[224]; // à
-            FREQUENCY[225] = 1; COUNT += FREQUENCY[225]; // á
-            FREQUENCY[226] = 1; COUNT += FREQUENCY[226]; // â
-            FREQUENCY[227] = 1; COUNT += FREQUENCY[227]; // ã
-            FREQUENCY[228] = 1; COUNT += FREQUENCY[228]; // ä
-            FREQUENCY[229] = 1; COUNT += FREQUENCY[229]; // å
-            FREQUENCY[230] = 1; COUNT += FREQUENCY[230]; // æ
-            FREQUENCY[231] = 1; COUNT += FREQUENCY[231]; // ç
-            FREQUENCY[232] = 1; COUNT += FREQUENCY[232]; // è
-            FREQUENCY[233] = 1; COUNT += FREQUENCY[233]; // é
-            FREQUENCY[234] = 1; COUNT += FREQUENCY[234]; // ê
-            FREQUENCY[235] = 1; COUNT += FREQUENCY[235]; // ë
-            FREQUENCY[236] = 1; COUNT += FREQUENCY[236]; // ì
-            FREQUENCY[237] = 1; COUNT += FREQUENCY[237]; // í
-            FREQUENCY[238] = 1; COUNT += FREQUENCY[238]; // î
-            FREQUENCY[239] = 1; COUNT += FREQUENCY[239]; // ï
-            FREQUENCY[240] = 1; COUNT += FREQUENCY[240]; // ð
-            FREQUENCY[241] = 1; COUNT += FREQUENCY[241]; // ñ
-            FREQUENCY[242] = 1; COUNT += FREQUENCY[242]; // ò
-            FREQUENCY[243] = 1; COUNT += FREQUENCY[243]; // ó
-            FREQUENCY[244] = 1; COUNT += FREQUENCY[244]; // ô
-            FREQUENCY[245] = 1; COUNT += FREQUENCY[245]; // õ
-            FREQUENCY[246] = 1; COUNT += FREQUENCY[246]; // ö
-            FREQUENCY[247] = 1; COUNT += FREQUENCY[247]; // ÷
-            FREQUENCY[248] = 1; COUNT += FREQUENCY[248]; // ø
-            FREQUENCY[249] = 1; COUNT += FREQUENCY[249]; // ù
-            FREQUENCY[250] = 1; COUNT += FREQUENCY[250]; // ú
-            FREQUENCY[251] = 1; COUNT += FREQUENCY[251]; // û
-            FREQUENCY[252] = 1; COUNT += FREQUENCY[252]; // ü
-            FREQUENCY[253] = 1; COUNT += FREQUENCY[253]; // ý
-            FREQUENCY[254] = 1; COUNT += FREQUENCY[254]; // þ
-            FREQUENCY[255] = 1; COUNT += FREQUENCY[255]; // ÿ
-
-            RANGES = new Dictionary<int, Tuple<double, double>>();
-            double low = 0;
-            foreach (var symbol in FREQUENCY)
-            {
-                double probability = symbol.Value / COUNT;
-                double high = low + probability;
-                RANGES[symbol.Key] = new Tuple<double, double>(low, high);
-                low = high;
-            }
+            RANGES[0] = Tuple.Create(0.0, 0.00166); // ?
+            RANGES[1] = Tuple.Create(0.00166, 0.00322); // 
+            RANGES[2] = Tuple.Create(0.00322, 0.00478); // 
+            RANGES[3] = Tuple.Create(0.00478, 0.00634); // 
+            RANGES[4] = Tuple.Create(0.00634, 0.0079); // 
+            RANGES[5] = Tuple.Create(0.0079, 0.00946); // 
+            RANGES[6] = Tuple.Create(0.00946, 0.01102); // 
+            RANGES[7] = Tuple.Create(0.01102, 0.01258); // 
+            RANGES[8] = Tuple.Create(0.01258, 0.01414); // 
+            RANGES[9] = Tuple.Create(0.01414, 0.0157); // 	
+            RANGES[10] = Tuple.Create(0.0157, 0.03145); // break line
+            RANGES[11] = Tuple.Create(0.03145, 0.03301); // 
+            RANGES[12] = Tuple.Create(0.03301, 0.03457); // 
+            RANGES[13] = Tuple.Create(0.03457, 0.05032); // break line
+            RANGES[14] = Tuple.Create(0.05032, 0.05188); // 
+            RANGES[15] = Tuple.Create(0.05188, 0.05344); // 
+            RANGES[16] = Tuple.Create(0.05344, 0.055); // 
+            RANGES[17] = Tuple.Create(0.055, 0.05656); // 
+            RANGES[18] = Tuple.Create(0.05656, 0.05812); // 
+            RANGES[19] = Tuple.Create(0.05812, 0.05968); // 
+            RANGES[20] = Tuple.Create(0.05968, 0.06124); // 
+            RANGES[21] = Tuple.Create(0.06124, 0.0628); // 
+            RANGES[22] = Tuple.Create(0.0628, 0.06436); // 
+            RANGES[23] = Tuple.Create(0.06436, 0.06592); // 
+            RANGES[24] = Tuple.Create(0.06592, 0.06748); // 
+            RANGES[25] = Tuple.Create(0.06748, 0.06904); // 
+            RANGES[26] = Tuple.Create(0.06904, 0.0706); // 
+            RANGES[27] = Tuple.Create(0.0706, 0.07216); // 
+            RANGES[28] = Tuple.Create(0.07216, 0.07372); // 
+            RANGES[29] = Tuple.Create(0.07372, 0.07528); // 
+            RANGES[30] = Tuple.Create(0.07528, 0.07684); // 
+            RANGES[31] = Tuple.Create(0.07684, 0.0784); // 
+            RANGES[32] = Tuple.Create(0.0784, 0.194); // space
+            RANGES[33] = Tuple.Create(0.194, 0.19733); // !
+            RANGES[34] = Tuple.Create(0.19733, 0.19933); // "
+            RANGES[35] = Tuple.Create(0.19933, 0.20089); // #
+            RANGES[36] = Tuple.Create(0.20089, 0.20245); // $
+            RANGES[37] = Tuple.Create(0.20245, 0.20401); // %
+            RANGES[38] = Tuple.Create(0.20401, 0.20557); // &
+            RANGES[39] = Tuple.Create(0.20557, 0.21408); // '
+            RANGES[40] = Tuple.Create(0.21408, 0.21586); // (
+            RANGES[41] = Tuple.Create(0.21586, 0.21763); // )
+            RANGES[42] = Tuple.Create(0.21763, 0.21942); // *
+            RANGES[43] = Tuple.Create(0.21942, 0.22098); // +
+            RANGES[44] = Tuple.Create(0.22098, 0.23207); // ,
+            RANGES[45] = Tuple.Create(0.23207, 0.23627); // -
+            RANGES[46] = Tuple.Create(0.23627, 0.24168); // .
+            RANGES[47] = Tuple.Create(0.24168, 0.24324); // /
+            RANGES[48] = Tuple.Create(0.24324, 0.2448); // 0
+            RANGES[49] = Tuple.Create(0.2448, 0.24636); // 1
+            RANGES[50] = Tuple.Create(0.24636, 0.24792); // 2
+            RANGES[51] = Tuple.Create(0.24792, 0.24948); // 3
+            RANGES[52] = Tuple.Create(0.24948, 0.25104); // 4
+            RANGES[53] = Tuple.Create(0.25104, 0.2526); // 5
+            RANGES[54] = Tuple.Create(0.2526, 0.25416); // 6
+            RANGES[55] = Tuple.Create(0.25416, 0.25572); // 7
+            RANGES[56] = Tuple.Create(0.25572, 0.25728); // 8
+            RANGES[57] = Tuple.Create(0.25728, 0.25884); // 9
+            RANGES[58] = Tuple.Create(0.25884, 0.26132); // :
+            RANGES[59] = Tuple.Create(0.26132, 0.26364); // ;
+            RANGES[60] = Tuple.Create(0.26364, 0.2652); // <
+            RANGES[61] = Tuple.Create(0.2652, 0.26676); // =
+            RANGES[62] = Tuple.Create(0.26676, 0.26832); // >
+            RANGES[63] = Tuple.Create(0.26832, 0.27067); // ?
+            RANGES[64] = Tuple.Create(0.27067, 0.27223); // @
+            RANGES[65] = Tuple.Create(0.27223, 0.2763); // A
+            RANGES[66] = Tuple.Create(0.2763, 0.27822); // B
+            RANGES[67] = Tuple.Create(0.27822, 0.28035); // C
+            RANGES[68] = Tuple.Create(0.28035, 0.28266); // D
+            RANGES[69] = Tuple.Create(0.28266, 0.28496); // E
+            RANGES[70] = Tuple.Create(0.28496, 0.28681); // F
+            RANGES[71] = Tuple.Create(0.28681, 0.2887); // G
+            RANGES[72] = Tuple.Create(0.2887, 0.29138); // H
+            RANGES[73] = Tuple.Create(0.29138, 0.29583); // I
+            RANGES[74] = Tuple.Create(0.29583, 0.29742); // J
+            RANGES[75] = Tuple.Create(0.29742, 0.2993); // K
+            RANGES[76] = Tuple.Create(0.2993, 0.30124); // L
+            RANGES[77] = Tuple.Create(0.30124, 0.30359); // M
+            RANGES[78] = Tuple.Create(0.30359, 0.30562); // N
+            RANGES[79] = Tuple.Create(0.30562, 0.30787); // O
+            RANGES[80] = Tuple.Create(0.30787, 0.30968); // P
+            RANGES[81] = Tuple.Create(0.30968, 0.31157); // Q
+            RANGES[82] = Tuple.Create(0.31157, 0.31368); // R
+            RANGES[83] = Tuple.Create(0.31368, 0.3161); // S
+            RANGES[84] = Tuple.Create(0.3161, 0.31952); // T
+            RANGES[85] = Tuple.Create(0.31952, 0.32134); // U
+            RANGES[86] = Tuple.Create(0.32134, 0.32306); // V
+            RANGES[87] = Tuple.Create(0.32306, 0.32555); // W
+            RANGES[88] = Tuple.Create(0.32555, 0.32712); // X
+            RANGES[89] = Tuple.Create(0.32712, 0.32913); // Y
+            RANGES[90] = Tuple.Create(0.32913, 0.33069); // Z
+            RANGES[91] = Tuple.Create(0.33069, 0.33226); // [
+            RANGES[92] = Tuple.Create(0.33226, 0.33382); // \
+            RANGES[93] = Tuple.Create(0.33382, 0.33539); // ]
+            RANGES[94] = Tuple.Create(0.33539, 0.33695); // ^
+            RANGES[95] = Tuple.Create(0.33695, 0.33852); // _
+            RANGES[96] = Tuple.Create(0.33852, 0.34445); // `
+            RANGES[97] = Tuple.Create(0.34445, 0.37816); // a
+            RANGES[98] = Tuple.Create(0.37816, 0.38518); // b
+            RANGES[99] = Tuple.Create(0.38518, 0.39563); // c
+            RANGES[100] = Tuple.Create(0.39563, 0.41588); // d
+            RANGES[101] = Tuple.Create(0.41588, 0.47023); // e
+            RANGES[102] = Tuple.Create(0.47023, 0.47939); // f
+            RANGES[103] = Tuple.Create(0.47939, 0.4906); // g
+            RANGES[104] = Tuple.Create(0.4906, 0.52012); // h
+            RANGES[105] = Tuple.Create(0.52012, 0.54842); // i
+            RANGES[106] = Tuple.Create(0.54842, 0.55052); // j
+            RANGES[107] = Tuple.Create(0.55052, 0.55632); // k
+            RANGES[108] = Tuple.Create(0.55632, 0.57609); // l
+            RANGES[109] = Tuple.Create(0.57609, 0.58517); // m
+            RANGES[110] = Tuple.Create(0.58517, 0.61392); // n
+            RANGES[111] = Tuple.Create(0.61392, 0.64691); // o
+            RANGES[112] = Tuple.Create(0.64691, 0.65423); // p
+            RANGES[113] = Tuple.Create(0.65423, 0.65628); // q
+            RANGES[114] = Tuple.Create(0.65628, 0.67873); // r
+            RANGES[115] = Tuple.Create(0.67873, 0.70506); // s
+            RANGES[116] = Tuple.Create(0.70506, 0.74691); // t
+            RANGES[117] = Tuple.Create(0.74691, 0.76188); // u
+            RANGES[118] = Tuple.Create(0.76188, 0.76661); // v
+            RANGES[119] = Tuple.Create(0.76661, 0.77778); // w
+            RANGES[120] = Tuple.Create(0.77778, 0.77991); // x
+            RANGES[121] = Tuple.Create(0.77991, 0.78995); // y
+            RANGES[122] = Tuple.Create(0.78995, 0.79181); // z
+            RANGES[123] = Tuple.Create(0.79181, 0.79337); // {
+            RANGES[124] = Tuple.Create(0.79337, 0.79493); // |
+            RANGES[125] = Tuple.Create(0.79493, 0.79649); // }
+            RANGES[126] = Tuple.Create(0.79649, 0.79805); // ~
+            RANGES[127] = Tuple.Create(0.79805, 0.79961); // 
+            RANGES[128] = Tuple.Create(0.79961, 0.80117); // ?
+            RANGES[129] = Tuple.Create(0.80117, 0.80273); // 
+            RANGES[130] = Tuple.Create(0.80273, 0.80429); // ?
+            RANGES[131] = Tuple.Create(0.80429, 0.80585); // ?
+            RANGES[132] = Tuple.Create(0.80585, 0.80741); // ?
+            RANGES[133] = Tuple.Create(0.80741, 0.80897); // ?
+            RANGES[134] = Tuple.Create(0.80897, 0.81053); // ?
+            RANGES[135] = Tuple.Create(0.81053, 0.81209); // ?
+            RANGES[136] = Tuple.Create(0.81209, 0.81365); // ?
+            RANGES[137] = Tuple.Create(0.81365, 0.81521); // ?
+            RANGES[138] = Tuple.Create(0.81521, 0.81677); // ?
+            RANGES[139] = Tuple.Create(0.81677, 0.81833); // ?
+            RANGES[140] = Tuple.Create(0.81833, 0.81989); // ?
+            RANGES[141] = Tuple.Create(0.81989, 0.82145); // 
+            RANGES[142] = Tuple.Create(0.82145, 0.82301); // ?
+            RANGES[143] = Tuple.Create(0.82301, 0.82457); // 
+            RANGES[144] = Tuple.Create(0.82457, 0.82613); // 
+            RANGES[145] = Tuple.Create(0.82613, 0.82769); // ?
+            RANGES[146] = Tuple.Create(0.82769, 0.82925); // ?
+            RANGES[147] = Tuple.Create(0.82925, 0.83081); // ?
+            RANGES[148] = Tuple.Create(0.83081, 0.83237); // ?
+            RANGES[149] = Tuple.Create(0.83237, 0.83393); // ?
+            RANGES[150] = Tuple.Create(0.83393, 0.83549); // ?
+            RANGES[151] = Tuple.Create(0.83549, 0.83705); // ?
+            RANGES[152] = Tuple.Create(0.83705, 0.83861); // ?
+            RANGES[153] = Tuple.Create(0.83861, 0.84017); // ?
+            RANGES[154] = Tuple.Create(0.84017, 0.84173); // ?
+            RANGES[155] = Tuple.Create(0.84173, 0.84329); // ?
+            RANGES[156] = Tuple.Create(0.84329, 0.84485); // ?
+            RANGES[157] = Tuple.Create(0.84485, 0.84641); // 
+            RANGES[158] = Tuple.Create(0.84641, 0.84797); // ?
+            RANGES[159] = Tuple.Create(0.84797, 0.84953); // ?
+            RANGES[160] = Tuple.Create(0.84953, 0.85109); //  
+            RANGES[161] = Tuple.Create(0.85109, 0.85265); // ¡
+            RANGES[162] = Tuple.Create(0.85265, 0.85421); // ¢
+            RANGES[163] = Tuple.Create(0.85421, 0.85577); // £
+            RANGES[164] = Tuple.Create(0.85577, 0.85733); // ¤
+            RANGES[165] = Tuple.Create(0.85733, 0.85889); // ¥
+            RANGES[166] = Tuple.Create(0.85889, 0.86045); // ¦
+            RANGES[167] = Tuple.Create(0.86045, 0.86201); // §
+            RANGES[168] = Tuple.Create(0.86201, 0.86357); // ¨
+            RANGES[169] = Tuple.Create(0.86357, 0.86513); // ©
+            RANGES[170] = Tuple.Create(0.86513, 0.86669); // ª
+            RANGES[171] = Tuple.Create(0.86669, 0.86825); // «
+            RANGES[172] = Tuple.Create(0.86825, 0.86981); // ¬
+            RANGES[173] = Tuple.Create(0.86981, 0.87137); // ­
+            RANGES[174] = Tuple.Create(0.87137, 0.87293); // ®
+            RANGES[175] = Tuple.Create(0.87293, 0.87449); // ¯
+            RANGES[176] = Tuple.Create(0.87449, 0.87605); // °
+            RANGES[177] = Tuple.Create(0.87605, 0.87761); // ±
+            RANGES[178] = Tuple.Create(0.87761, 0.87917); // ²
+            RANGES[179] = Tuple.Create(0.87917, 0.88073); // ³
+            RANGES[180] = Tuple.Create(0.88073, 0.88229); // ´
+            RANGES[181] = Tuple.Create(0.88229, 0.88385); // µ
+            RANGES[182] = Tuple.Create(0.88385, 0.88541); // ¶
+            RANGES[183] = Tuple.Create(0.88541, 0.88697); // ·
+            RANGES[184] = Tuple.Create(0.88697, 0.88853); // ¸
+            RANGES[185] = Tuple.Create(0.88853, 0.89009); // ¹
+            RANGES[186] = Tuple.Create(0.89009, 0.89165); // º
+            RANGES[187] = Tuple.Create(0.89165, 0.89321); // »
+            RANGES[188] = Tuple.Create(0.89321, 0.89477); // ¼
+            RANGES[189] = Tuple.Create(0.89477, 0.89633); // ½
+            RANGES[190] = Tuple.Create(0.89633, 0.89789); // ¾
+            RANGES[191] = Tuple.Create(0.89789, 0.89945); // ¿
+            RANGES[192] = Tuple.Create(0.89945, 0.90101); // À
+            RANGES[193] = Tuple.Create(0.90101, 0.90257); // Á
+            RANGES[194] = Tuple.Create(0.90257, 0.90413); // Â
+            RANGES[195] = Tuple.Create(0.90413, 0.90569); // Ã
+            RANGES[196] = Tuple.Create(0.90569, 0.90725); // Ä
+            RANGES[197] = Tuple.Create(0.90725, 0.90881); // Å
+            RANGES[198] = Tuple.Create(0.90881, 0.91037); // Æ
+            RANGES[199] = Tuple.Create(0.91037, 0.91193); // Ç
+            RANGES[200] = Tuple.Create(0.91193, 0.91349); // È
+            RANGES[201] = Tuple.Create(0.91349, 0.91505); // É
+            RANGES[202] = Tuple.Create(0.91505, 0.91661); // Ê
+            RANGES[203] = Tuple.Create(0.91661, 0.91817); // Ë
+            RANGES[204] = Tuple.Create(0.91817, 0.91973); // Ì
+            RANGES[205] = Tuple.Create(0.91973, 0.92129); // Í
+            RANGES[206] = Tuple.Create(0.92129, 0.92285); // Î
+            RANGES[207] = Tuple.Create(0.92285, 0.92441); // Ï
+            RANGES[208] = Tuple.Create(0.92441, 0.92597); // Ð
+            RANGES[209] = Tuple.Create(0.92597, 0.92753); // Ñ
+            RANGES[210] = Tuple.Create(0.92753, 0.92909); // Ò
+            RANGES[211] = Tuple.Create(0.92909, 0.93065); // Ó
+            RANGES[212] = Tuple.Create(0.93065, 0.93221); // Ô
+            RANGES[213] = Tuple.Create(0.93221, 0.93377); // Õ
+            RANGES[214] = Tuple.Create(0.93377, 0.93533); // Ö
+            RANGES[215] = Tuple.Create(0.93533, 0.93689); // ×
+            RANGES[216] = Tuple.Create(0.93689, 0.93845); // Ø
+            RANGES[217] = Tuple.Create(0.93845, 0.94001); // Ù
+            RANGES[218] = Tuple.Create(0.94001, 0.94157); // Ú
+            RANGES[219] = Tuple.Create(0.94157, 0.94313); // Û
+            RANGES[220] = Tuple.Create(0.94313, 0.94469); // Ü
+            RANGES[221] = Tuple.Create(0.94469, 0.94625); // Ý
+            RANGES[222] = Tuple.Create(0.94625, 0.94781); // Þ
+            RANGES[223] = Tuple.Create(0.94781, 0.94937); // ß
+            RANGES[224] = Tuple.Create(0.94937, 0.95093); // à
+            RANGES[225] = Tuple.Create(0.95093, 0.95249); // á
+            RANGES[226] = Tuple.Create(0.95249, 0.95405); // â
+            RANGES[227] = Tuple.Create(0.95405, 0.95561); // ã
+            RANGES[228] = Tuple.Create(0.95561, 0.95717); // ä
+            RANGES[229] = Tuple.Create(0.95717, 0.95873); // å
+            RANGES[230] = Tuple.Create(0.95873, 0.96029); // æ
+            RANGES[231] = Tuple.Create(0.96029, 0.96185); // ç
+            RANGES[232] = Tuple.Create(0.96185, 0.96341); // è
+            RANGES[233] = Tuple.Create(0.96341, 0.96497); // é
+            RANGES[234] = Tuple.Create(0.96497, 0.96653); // ê
+            RANGES[235] = Tuple.Create(0.96653, 0.96809); // ë
+            RANGES[236] = Tuple.Create(0.96809, 0.96965); // ì
+            RANGES[237] = Tuple.Create(0.96965, 0.97121); // í
+            RANGES[238] = Tuple.Create(0.97121, 0.97277); // î
+            RANGES[239] = Tuple.Create(0.97277, 0.97433); // ï
+            RANGES[240] = Tuple.Create(0.97433, 0.97589); // ð
+            RANGES[241] = Tuple.Create(0.97589, 0.97745); // ñ
+            RANGES[242] = Tuple.Create(0.97745, 0.97901); // ò
+            RANGES[243] = Tuple.Create(0.97901, 0.98057); // ó
+            RANGES[244] = Tuple.Create(0.98057, 0.98213); // ô
+            RANGES[245] = Tuple.Create(0.98213, 0.98369); // õ
+            RANGES[246] = Tuple.Create(0.98369, 0.98525); // ö
+            RANGES[247] = Tuple.Create(0.98525, 0.98681); // ÷
+            RANGES[248] = Tuple.Create(0.98681, 0.98837); // ø
+            RANGES[249] = Tuple.Create(0.98837, 0.98993); // ù
+            RANGES[250] = Tuple.Create(0.98993, 0.99149); // ú
+            RANGES[251] = Tuple.Create(0.99149, 0.99305); // û
+            RANGES[252] = Tuple.Create(0.99305, 0.99461); // ü
+            RANGES[253] = Tuple.Create(0.99461, 0.99617); // ý
+            RANGES[254] = Tuple.Create(0.99617, 0.99773); // þ
+            RANGES[255] = Tuple.Create(0.99773, 0.99939); // ÿ
         }
     }
 }

@@ -259,7 +259,7 @@ namespace Data_Compression
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
-            new ShannonFanoCoding().Encode(new byte[] { (byte)'H', (byte)'E', (byte)'L', (byte)'L', (byte)'O' });
+            
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Data_Compression
             symbols.Sort(new SymbolComparer());
 
             Dictionary<Symbol, string> codeWords = new Dictionary<Symbol, string>();
-            BuildCodeWords(symbols, codeWords, 0, symbols.Count, n, "");
+            BuildCodewords(symbols, codeWords, 0, symbols.Count, n, "");
 
             result.Append((char)(symbols.Count - 1));
             for (int i = 0; i < symbols.Count; i++)
@@ -103,7 +103,7 @@ namespace Data_Compression
             return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        void BuildCodeWords(List<Symbol> symbols, Dictionary<Symbol, string> codeWords, int start, int end, int n, string code)
+        void BuildCodewords(List<Symbol> symbols, Dictionary<Symbol, string> codeWords, int start, int end, int n, string code)
         {
             int n1 = 0;
             int n2 = n;
@@ -132,8 +132,8 @@ namespace Data_Compression
                 codeWords[symbols[j]] = code;
             if (start >= end - 1)
                 return;
-            BuildCodeWords(symbols, codeWords, start, i, n1, code + "0");
-            BuildCodeWords(symbols, codeWords, i, end, n2, code + "1");
+            BuildCodewords(symbols, codeWords, start, i, n1, code + "0");
+            BuildCodewords(symbols, codeWords, i, end, n2, code + "1");
         }
     }
 }

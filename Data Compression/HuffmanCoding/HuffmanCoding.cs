@@ -42,7 +42,7 @@ namespace Data_Compression
                 nodes.Sort(nodeComparer);
             }
             codeWords[nodes[0]] = "";
-            BuildCodeWords(nodes[0], codeWords);
+            BuildCodewords(nodes[0], codeWords);
 
             result.Append((char)(symbols.Count - 1));
             for (int i = 0; i < symbols.Count; i++)
@@ -118,19 +118,19 @@ namespace Data_Compression
             return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        void BuildCodeWords(Node node, Dictionary<Node, string> codeWords)
+        void BuildCodewords(Node node, Dictionary<Node, string> codeWords)
         {
             Node left = node.Left;
             if (left != null)
             {
                 codeWords[left] = codeWords[node] + "0";
-                BuildCodeWords(left, codeWords);
+                BuildCodewords(left, codeWords);
             }
             Node right = node.Right;
             if (right != null)
             {
                 codeWords[right] = codeWords[node] + "1";
-                BuildCodeWords(right, codeWords);
+                BuildCodewords(right, codeWords);
             }
         }
     }

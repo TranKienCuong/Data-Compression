@@ -9,46 +9,50 @@ namespace Data_Compression
 {
     public class ArithmeticCoding
     {
-        public string Encode(string data)
+        public byte[] Encode(byte[] data)
         {
-            string result = "";
-            Dictionary<char, Tuple<double, double>> ranges = GetRanges(data);
-            int powOfTen = 1;
-            BigInteger low = 0, high = 1;
-            double range = 1;
-            return result;
-        }
-
-        public string Decode(string data)
-        {
-            string result = "";
-
-            return result;
-        }
-
-        Dictionary<char, Tuple<double, double>> GetRanges(string data)
-        {
-            Dictionary<char, int> frequency = new Dictionary<char, int>();
+            StringBuilder result = new StringBuilder("");
+            BigInteger low = 0, high = 1, range = 1;
             for (int i = 0; i < data.Length; i++)
             {
-                if (frequency.ContainsKey(data[i]))
-                    frequency[data[i]]++;
-                else
-                    frequency[data[i]] = 1;
+                byte symbol = data[i];
+                Tuple<double, double> rangeSymbol = FrequencyOfCharacters.RANGES[symbol];
+                double lowSymbol = rangeSymbol.Item1;
+                double highSymbol = rangeSymbol.Item2;
+                int k = Math.Max(GetFractionalDigits(lowSymbol), GetFractionalDigits(highSymbol));
+                double pow = Math.Pow(10, k);
+                BigInteger iPow = new BigInteger(pow);
+                BigInteger iLow = low * iPow;
+                BigInteger iLowSymbol = new BigInteger(lowSymbol * pow);
+                BigInteger iHighSymbol = new BigInteger(highSymbol * pow);
+                low = iLow + range * iLowSymbol;
+                high = iLow + range * iHighSymbol;
+                range = high - low;
             }
-            Dictionary<char, Tuple<double, double>> ranges = new Dictionary<char, Tuple<double, double>>();
-            double low = 0;
-            foreach (var symbol in frequency)
-            {
-                double probability = symbol.Value / data.Length;
-                double high = low + probability;
-                ranges[symbol.Key] = new Tuple<double, double>(low, high);
-                low = high;
-            }
-            return ranges;
+            string binaryString = GeneratingCodewords(low, high);
+            while (binaryString.Length % 8 != 0)
+                binaryString += "0";
+            List<int> ints = Utilities.ConvertBinaryStringToListInt(binaryString);
+            foreach (int i in ints)
+                result.Append((char)i);
+            return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        int GetFractionLength(double number)
+        public byte[] Decode(byte[] data)
+        {
+            StringBuilder result = new StringBuilder("");
+
+            return Utilities.ConvertStringToBytes(result.ToString());
+        }
+
+        string GeneratingCodewords(BigInteger low, BigInteger high)
+        {
+            StringBuilder result = new StringBuilder("");
+
+            return result.ToString();
+        }
+
+        int GetFractionalDigits(double number)
         {
             string str = number.ToString();
             return str.Substring(str.IndexOf(".") + 1).Length;
