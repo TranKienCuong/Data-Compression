@@ -25,6 +25,42 @@ namespace Data_Compression
                 symbols.Add(new Symbol(f.Key, f.Value));
             symbols.Sort(new SymbolComparer());
 
+            Dictionary<Symbol, string> codeWords = new Dictionary<Symbol, string>();
+            BuildCodeWords(symbols, codeWords, 0, symbols.Count, n, "");
+
+            for (int i = 0; i < symbols.Count; i++)
+                Console.WriteLine("{0}, {1}", (char)symbols[i].Data, codeWords[symbols[i]]);
+
+            result.Append((char)(symbols.Count - 1));
+            for (int i = 0; i < symbols.Count; i++)
+            {
+                Symbol symbol = symbols[i];
+                string code = codeWords[symbol];
+                result.Append((char)symbol.Data);
+                result.Append((char)code.Length);
+                while (code.Length % 8 != 0)
+                    code += "0";
+                List<int> ints = Utilities.ConvertBinaryStringToListInt(code);
+                foreach (int x in ints)
+                    result.Append((char)x);
+            }
+
+            StringBuilder binaryString = new StringBuilder("");
+            for (int i = 0; i < n; i++)
+            {
+                string code = codeWords[new Symbol(data[i])];
+                binaryString.Append(code);
+            }
+            int redundantBits = 0;
+            while (binaryString.Length % 8 != 0)
+            {
+                binaryString.Append("0");
+                redundantBits++;
+            }
+            result.Append((char)redundantBits);
+            List<int> intes = Utilities.ConvertBinaryStringToListInt(binaryString.ToString());
+            foreach (int i in intes)
+                result.Append((char)i);
 
             return Utilities.ConvertStringToBytes(result.ToString());
         }
@@ -32,20 +68,75 @@ namespace Data_Compression
         public byte[] Decode(byte[] data)
         {
             StringBuilder result = new StringBuilder("");
-            
+            int symbolsCount = data[0] + 1;
+            int i = 1;
+            Dictionary<string, Symbol> codeWords = new Dictionary<string, Symbol>();
+            for (int k = 0; k < symbolsCount; k++)
+            {
+                Symbol symbol = new Symbol(data[i++]);
+                int bits = data[i++];
+                int bytes = (bits - 1) / 8 + 1;
+                List<int> ints = new List<int>();
+                for (int j = i; j < i + bytes; j++)
+                    ints.Add(data[j]);
+                string binary = Utilities.ConvertListIntToBinaryString(ints);
+                string code = binary.Substring(0, bits);
+                codeWords.Add(code, symbol);
+                i += bytes;
+            }
+            int redundantBits = data[i++];
+            List<int> intes = new List<int>();
+            for (; i < data.Length; i++)
+                intes.Add(data[i]);
+            string binaryString = Utilities.ConvertListIntToBinaryString(intes);
+            if (redundantBits != 0)
+                binaryString = binaryString.Remove(binaryString.Length - redundantBits);
+            StringBuilder sb = new StringBuilder("");
+            for (int j = 0; j < binaryString.Length; j++)
+            {
+                sb.Append(binaryString[j]);
+                string s = sb.ToString();
+                if (codeWords.ContainsKey(s))
+                {
+                    result.Append((char)codeWords[s].Data);
+                    sb = new StringBuilder("");
+                }
+            }
+
             return Utilities.ConvertStringToBytes(result.ToString());
         }
 
-        void BuildCodingTree(List<Symbol> symbols, int n)
+        void BuildCodeWords(List<Symbol> symbols, Dictionary<Symbol, string> codeWords, int start, int end, int n, string code)
         {
             int n1 = 0;
             int n2 = n;
-            foreach (var symbol in symbols)
+            int i = start;
+            for (; i < end; i++)
             {
+                Symbol symbol = symbols[i];
                 n1 += symbol.Frequency;
                 n2 -= symbol.Frequency;
-                
+                if (n1 > n2)
+                {
+                    int d1 = n1 - n2;
+                    n1 -= symbol.Frequency;
+                    n2 += symbol.Frequency;
+                    int d2 = n2 - n1;
+                    if (d1 < d2)
+                    {
+                        i++;
+                        n1 += symbol.Frequency;
+                        n2 -= symbol.Frequency;
+                    }
+                    break;
+                }
             }
+            for (int j = start; j < end; j++)
+                codeWords[symbols[j]] = code;
+            if (start >= end - 1)
+                return;
+            BuildCodeWords(symbols, codeWords, start, i, n1, code + "0");
+            BuildCodeWords(symbols, codeWords, i, end, n2, code + "1");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Data_Compression
     {
         public int Compare(Symbol x, Symbol y)
         {
-            return x.Frequency.CompareTo(y.Frequency);
+            return -x.Frequency.CompareTo(y.Frequency);
         }
     }
 }

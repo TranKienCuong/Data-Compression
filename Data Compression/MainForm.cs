@@ -94,7 +94,7 @@ namespace Data_Compression
                 if (shannonFanoRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ShannonFanoCoding;
-                    // to do
+                    encodeData = new ShannonFanoCoding().Encode(data);
                 };
                 if (huffmanRadioButton.Checked)
                 {
@@ -162,7 +162,7 @@ namespace Data_Compression
             switch (algorithm)
             {
                 case ALGORITHM.ShannonFanoCoding:
-                    // to do
+                    result = new ShannonFanoCoding().Decode(data);
                     break;
                 case ALGORITHM.HuffmanCoding:
                     // to do
@@ -259,6 +259,7 @@ namespace Data_Compression
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
+            new ShannonFanoCoding().Encode(new byte[] { (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'a', (byte)'b', (byte)'b', (byte)'b', (byte)'b', (byte)'b', (byte)'c', (byte)'c', (byte)'c', (byte)'d' });
         }
     }
 }
