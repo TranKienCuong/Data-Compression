@@ -7,9 +7,9 @@ using System.IO;
 
 namespace Data_Compression
 {
-    public static class FrequencyOfCharacters
+    public static class Characters
     {
-        public static Dictionary<int, Tuple<double, double>> RANGES;
+        public static Dictionary<int, Tuple<double, double>> RANGES = new Dictionary<int, Tuple<double, double>>();
 
         public static void Init()
         {

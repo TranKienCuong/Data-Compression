@@ -79,7 +79,7 @@
     <Compile Include="ALGORITHM.cs" />
     <Compile Include="ArithmeticCoding\ArithmeticCoding.cs" />
     <Compile Include="CompressedFileInfo.cs" />
-    <Compile Include="ArithmeticCoding\FrequencyOfCharacters.cs" />
+    <Compile Include="ArithmeticCoding\Characters.cs" />
     <Compile Include="DifferentialImageCoding\DifferentialImageCoding.cs" />
     <Compile Include="HuffmanCoding\HuffmanCoding.cs" />
     <Compile Include="HuffmanCoding\Node.cs" />

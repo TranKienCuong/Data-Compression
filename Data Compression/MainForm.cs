@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Drawing.Imaging;
+using System.Numerics;
 
 namespace Data_Compression
 {
@@ -119,7 +120,7 @@ namespace Data_Compression
                 if (arithmeticRadioButton.Checked)
                 {
                     algorithm = ALGORITHM.ArithmeticCoding;
-                    //encodeData = new ArithmeticCoding().Encode(data);
+                    encodeData = new ArithmeticCoding().Encode(data);
                 };
                 header += ((int)algorithm).ToString();
                 FileStream writer = new FileStream(destPath, FileMode.Create, FileAccess.Write);
@@ -177,7 +178,7 @@ namespace Data_Compression
                     result = new LZWCoding().Decode(data);
                     break;
                 case ALGORITHM.ArithmeticCoding:
-                    //result = new ArithmeticCoding().Decode(data);
+                    result = new ArithmeticCoding().Decode(data);
                     break;
             }
             if (!losslessJPEG)
@@ -259,7 +260,14 @@ namespace Data_Compression
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
-            
+            BigInteger b1 = new BigInteger(33184);
+            BigInteger b2 = new BigInteger(33220);
+            //new ArithmeticCoding().GeneratingCodewords(b1, b2);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Characters.Init();
         }
     }
 }
