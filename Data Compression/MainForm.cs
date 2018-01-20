@@ -30,6 +30,7 @@ namespace Data_Compression
             {
                 case ".txt":
                     typeLabel.Text = "File type: Text";
+                    compressButton.Focus();
                     break;
                 case ".bmp":
                     try
@@ -47,12 +48,15 @@ namespace Data_Compression
                     {
                         typeLabel.Text = "File type: Undefined";
                     };
+                    compressButton.Focus();
                     break;
                 case ".cdt":
                     typeLabel.Text = "File type: CDT Compression";
+                    extractButton.Focus();
                     break;
                 default:
                     typeLabel.Text = "File type: Undefined";
+                    compressButton.Focus();
                     break;
             }
             FileInfo f = new FileInfo(path);
@@ -101,11 +105,6 @@ namespace Data_Compression
                 {
                     algorithm = ALGORITHM.HuffmanCoding;
                     encodeData = new HuffmanCoding().Encode(data);
-                };
-                if (adaptiveHuffmanRadioButton.Checked)
-                {
-                    algorithm = ALGORITHM.AdaptiveHuffmanCoding;
-                    // to do
                 };
                 if (runLengthRadioButton.Checked)
                 {
@@ -168,9 +167,6 @@ namespace Data_Compression
                 case ALGORITHM.HuffmanCoding:
                     result = new HuffmanCoding().Decode(data);
                     break;
-                case ALGORITHM.AdaptiveHuffmanCoding:
-                    // to do
-                    break;
                 case ALGORITHM.RunLengthCoding:
                     result = new RunLengthCoding().Decode(data);
                     break;
@@ -188,6 +184,8 @@ namespace Data_Compression
             else
             {
                 Bitmap image = new DifferentialImageCoding().Decode(result, width, height);
+                if (File.Exists(destPath))
+                    File.Delete(destPath);
                 image.Save(destPath, ImageFormat.Bmp);
             }
             Process.Start("explorer.exe", "/select, " + destPath);
@@ -232,14 +230,21 @@ namespace Data_Compression
 
         private void compressButton_Click(object sender, EventArgs e)
         {
+            if (existLabel.Visible || pathTextBox.Text == "")
+                return;
             if (compressSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                waitLabel.Visible = true;
+                Application.DoEvents();
                 DoCompression();
+                waitLabel.Visible = false;
             }
         }
 
         private void extractButton_Click(object sender, EventArgs e)
         {
+            if (existLabel.Visible || pathTextBox.Text == "")
+                return;
             string path = pathTextBox.Text;
             FileStream reader = new FileStream(path, FileMode.Open, FileAccess.Read);
             string ext = "";
@@ -253,16 +258,16 @@ namespace Data_Compression
             extractSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(path) + ext;
             if (extractSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                waitLabel.Visible = true;
+                Application.DoEvents();
                 DoExtraction(reader);
+                waitLabel.Visible = false;
             }
         }
 
         private void algorithmCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             algorithmGroupBox.Enabled = !algorithmCheckBox.Checked;
-            BigInteger b1 = new BigInteger(33184);
-            BigInteger b2 = new BigInteger(33220);
-            //new ArithmeticCoding().GeneratingCodewords(b1, b2);
         }
 
         private void MainForm_Load(object sender, EventArgs e)

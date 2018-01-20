@@ -10,7 +10,6 @@ namespace Data_Compression
     {
         ShannonFanoCoding,
         HuffmanCoding,
-        AdaptiveHuffmanCoding,
         RunLengthCoding,
         LZWCoding,
         ArithmeticCoding,

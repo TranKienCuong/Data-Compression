@@ -269,6 +269,7 @@ namespace Data_Compression
             RANGES[253] = Tuple.Create(0.99461, 0.99617); // ý
             RANGES[254] = Tuple.Create(0.99617, 0.99773); // þ
             RANGES[255] = Tuple.Create(0.99773, 0.99939); // ÿ
+            RANGES[256] = Tuple.Create(0.99939, 1.0); // terminator
         }
     }
 }

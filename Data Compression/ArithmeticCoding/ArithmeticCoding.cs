@@ -13,18 +13,23 @@ namespace Data_Compression
         {
             StringBuilder result = new StringBuilder("");
             BigInteger low = 0, high = 1, range = 1;
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i <= data.Length; i++)
             {
-                byte symbol = data[i];
-                Tuple<double, double> rangeSymbol = Characters.RANGES[symbol];
+                Tuple<double, double> rangeSymbol;
+                if (i != data.Length)
+                {
+                    byte symbol = data[i];
+                    rangeSymbol = Characters.RANGES[symbol];
+                }
+                else
+                    rangeSymbol = Characters.RANGES[256];
                 double lowSymbol = rangeSymbol.Item1;
                 double highSymbol = rangeSymbol.Item2;
                 int k = Math.Max(GetFractionalDigitsLength(lowSymbol), GetFractionalDigitsLength(highSymbol));
-                double pow = Math.Pow(10, k);
-                BigInteger iPow = new BigInteger(pow);
+                BigInteger iPow = BigInteger.Pow(10, k);
                 BigInteger iLow = low * iPow;
-                BigInteger iLowSymbol = new BigInteger(lowSymbol * pow);
-                BigInteger iHighSymbol = new BigInteger(highSymbol * pow);
+                BigInteger iLowSymbol = Multiply(lowSymbol, iPow);
+                BigInteger iHighSymbol = Multiply(highSymbol, iPow);
                 low = iLow + range * iLowSymbol;
                 high = iLow + range * iHighSymbol;
                 range = high - low;
@@ -46,19 +51,40 @@ namespace Data_Compression
                 ints.Add(data[i]);
             string binaryString = Utilities.ConvertListIntToBinaryString(ints);
             while (binaryString.Last() == '0')
-                binaryString.Remove(binaryString.Length - 1);
+                binaryString = binaryString.Remove(binaryString.Length - 1);
             int n = binaryString.Length;
             BigInteger codeValue = new BigInteger(0);
-            BigInteger pow = new BigInteger(Math.Pow(10, n));
+            BigInteger pow = BigInteger.Pow(10, n);
             for (int i = 0; i < n; i++)
-                codeValue = codeValue + pow / new BigInteger(Math.Pow(2, i + 1));
+                if (binaryString[i] == '1')
+                    codeValue = codeValue + pow / BigInteger.Pow(2, i + 1);
 
-            BigInteger terminator = new BigInteger();
+            int d = GetDigitsLength(codeValue);
+            pow = BigInteger.Pow(10, d - 5);
+            BigInteger terminator = 99939 * pow;
             while (codeValue < terminator)
             {
-
+                int i = BinarySearch(codeValue);
+                result.Append((char)i);
+                double lowSymbol = Characters.RANGES[i].Item1;
+                double highSymbol = Characters.RANGES[i].Item2;
+                double rangeSymbol = highSymbol - lowSymbol;
+                int k = GetFractionalDigitsLength(rangeSymbol);
+                BigInteger low = new BigInteger((lowSymbol * 100000)) * pow;
+                BigInteger high = new BigInteger((highSymbol * 100000)) * pow;
+                BigInteger range = Multiply(rangeSymbol, BigInteger.Pow(10, k));
+                BigInteger temp = (codeValue - low) * BigInteger.Pow(10, k);
+                for (int j = 0; j < 100; j++)
+                {
+                    if (BigInteger.Remainder(temp, range) == 0)
+                        break;
+                    temp *= 10;
+                }
+                codeValue = temp / range;
+                d = GetDigitsLength(codeValue);
+                pow = BigInteger.Pow(10, d - 5);
+                terminator = 99939 * pow;
             }
-
             return Utilities.ConvertStringToBytes(result.ToString());
         }
 
@@ -86,13 +112,13 @@ namespace Data_Compression
                 indices.Add(k);
                 if (k <= d)
                 {
-                    codeValue = codeValue + new BigInteger(Math.Pow(5, k)) * new BigInteger(Math.Pow(10, d - k));
+                    codeValue = codeValue + BigInteger.Pow(5, k) * BigInteger.Pow(10, d - k);
                 }
                 else
                 {
                     int i = k - d;
-                    BigInteger pow = new BigInteger(Math.Pow(10, i));
-                    codeValue = codeValue * pow + new BigInteger(Math.Pow(5, k));
+                    BigInteger pow = BigInteger.Pow(10, i);
+                    codeValue = codeValue * pow + BigInteger.Pow(5, k);
                     low = low * pow;
                     high = high * pow;
                     oldValue = oldValue * pow;
@@ -122,13 +148,12 @@ namespace Data_Compression
         {
             int begin = 0, end = 255;
             int d = GetDigitsLength(codeValue);
-            BigInteger pow = new BigInteger(Math.Pow(10, d - 5));
+            BigInteger pow = BigInteger.Pow(10, d - 5);
             while (begin <= end)
             {
                 int mid = (begin + end) / 2;
-                BigInteger low = new BigInteger((int)(Characters.RANGES[mid].Item1 * 100000));
-                BigInteger high = new BigInteger((int)(Characters.RANGES[mid].Item2 * 100000));
-                low *= pow; high *= pow;
+                BigInteger low = new BigInteger((Characters.RANGES[mid].Item1 * 100000)) * pow;
+                BigInteger high = new BigInteger((Characters.RANGES[mid].Item2 * 100000)) * pow;
                 if (low <= codeValue && codeValue < high)
                     return mid;
                 else if (codeValue < high)
@@ -137,6 +162,15 @@ namespace Data_Compression
                     begin = mid + 1;
             }
             return -1;
+        }
+
+        BigInteger Multiply(double d, BigInteger bi)
+        {
+            if (d == 0) return 0;
+            if (d == 1) return bi;
+            int k = GetFractionalDigitsLength(d);
+            long pow = (long)Math.Pow(10, k);
+            return bi * long.Parse(d.ToString().Split('.')[1]) / pow;
         }
     }
 }

@@ -40,20 +40,17 @@
             this.algorithmGroupBox = new System.Windows.Forms.GroupBox();
             this.arithmeticRadioButton = new System.Windows.Forms.RadioButton();
             this.lzwRadioButton = new System.Windows.Forms.RadioButton();
-            this.adaptiveHuffmanRadioButton = new System.Windows.Forms.RadioButton();
             this.huffmanRadioButton = new System.Windows.Forms.RadioButton();
             this.shannonFanoRadioButton = new System.Windows.Forms.RadioButton();
             this.runLengthRadioButton = new System.Windows.Forms.RadioButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.compressSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.extractSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.existLabel = new System.Windows.Forms.Label();
             this.algorithmCheckBox = new System.Windows.Forms.CheckBox();
             this.jpegCheckBox = new System.Windows.Forms.CheckBox();
+            this.waitLabel = new System.Windows.Forms.Label();
             this.algorithmGroupBox.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pathTextBox
@@ -136,7 +133,6 @@
             // 
             this.algorithmGroupBox.Controls.Add(this.arithmeticRadioButton);
             this.algorithmGroupBox.Controls.Add(this.lzwRadioButton);
-            this.algorithmGroupBox.Controls.Add(this.adaptiveHuffmanRadioButton);
             this.algorithmGroupBox.Controls.Add(this.huffmanRadioButton);
             this.algorithmGroupBox.Controls.Add(this.shannonFanoRadioButton);
             this.algorithmGroupBox.Controls.Add(this.runLengthRadioButton);
@@ -150,7 +146,7 @@
             // arithmeticRadioButton
             // 
             this.arithmeticRadioButton.AutoSize = true;
-            this.arithmeticRadioButton.Location = new System.Drawing.Point(291, 99);
+            this.arithmeticRadioButton.Location = new System.Drawing.Point(287, 64);
             this.arithmeticRadioButton.Name = "arithmeticRadioButton";
             this.arithmeticRadioButton.Size = new System.Drawing.Size(191, 29);
             this.arithmeticRadioButton.TabIndex = 5;
@@ -160,22 +156,12 @@
             // lzwRadioButton
             // 
             this.lzwRadioButton.AutoSize = true;
-            this.lzwRadioButton.Location = new System.Drawing.Point(291, 64);
+            this.lzwRadioButton.Location = new System.Drawing.Point(287, 29);
             this.lzwRadioButton.Name = "lzwRadioButton";
             this.lzwRadioButton.Size = new System.Drawing.Size(316, 29);
             this.lzwRadioButton.TabIndex = 4;
             this.lzwRadioButton.Text = "Dictionary-Based Coding (LZW)";
             this.lzwRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // adaptiveHuffmanRadioButton
-            // 
-            this.adaptiveHuffmanRadioButton.AutoSize = true;
-            this.adaptiveHuffmanRadioButton.Location = new System.Drawing.Point(25, 99);
-            this.adaptiveHuffmanRadioButton.Name = "adaptiveHuffmanRadioButton";
-            this.adaptiveHuffmanRadioButton.Size = new System.Drawing.Size(260, 29);
-            this.adaptiveHuffmanRadioButton.TabIndex = 3;
-            this.adaptiveHuffmanRadioButton.Text = "Adaptive Huffman Coding";
-            this.adaptiveHuffmanRadioButton.UseVisualStyleBackColor = true;
             // 
             // huffmanRadioButton
             // 
@@ -202,7 +188,7 @@
             // runLengthRadioButton
             // 
             this.runLengthRadioButton.AutoSize = true;
-            this.runLengthRadioButton.Location = new System.Drawing.Point(291, 29);
+            this.runLengthRadioButton.Location = new System.Drawing.Point(25, 99);
             this.runLengthRadioButton.Name = "runLengthRadioButton";
             this.runLengthRadioButton.Size = new System.Drawing.Size(207, 29);
             this.runLengthRadioButton.TabIndex = 0;
@@ -216,23 +202,6 @@
             // compressSaveFileDialog
             // 
             this.compressSaveFileDialog.Filter = "CDT files (*.cdt)|*.cdt|All files (*.*)|*.*";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(828, 33);
-            this.menuStrip1.TabIndex = 14;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(74, 29);
-            this.aboutToolStripMenuItem.Text = "About";
             // 
             // existLabel
             // 
@@ -269,6 +238,17 @@
             this.jpegCheckBox.UseVisualStyleBackColor = true;
             this.jpegCheckBox.Visible = false;
             // 
+            // waitLabel
+            // 
+            this.waitLabel.AutoSize = true;
+            this.waitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.waitLabel.Location = new System.Drawing.Point(670, 430);
+            this.waitLabel.Name = "waitLabel";
+            this.waitLabel.Size = new System.Drawing.Size(126, 25);
+            this.waitLabel.TabIndex = 18;
+            this.waitLabel.Text = "Please wait...";
+            this.waitLabel.Visible = false;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -276,6 +256,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(828, 464);
+            this.Controls.Add(this.waitLabel);
             this.Controls.Add(this.jpegCheckBox);
             this.Controls.Add(this.algorithmCheckBox);
             this.Controls.Add(this.existLabel);
@@ -288,10 +269,8 @@
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pathTextBox);
-            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -301,8 +280,6 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.algorithmGroupBox.ResumeLayout(false);
             this.algorithmGroupBox.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,7 +296,6 @@
         private System.Windows.Forms.Button extractButton;
         private System.Windows.Forms.Label lengthLabel;
         private System.Windows.Forms.GroupBox algorithmGroupBox;
-        private System.Windows.Forms.RadioButton adaptiveHuffmanRadioButton;
         private System.Windows.Forms.RadioButton huffmanRadioButton;
         private System.Windows.Forms.RadioButton shannonFanoRadioButton;
         private System.Windows.Forms.RadioButton runLengthRadioButton;
@@ -328,11 +304,10 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog compressSaveFileDialog;
         private System.Windows.Forms.SaveFileDialog extractSaveFileDialog;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label existLabel;
         private System.Windows.Forms.CheckBox algorithmCheckBox;
         private System.Windows.Forms.CheckBox jpegCheckBox;
+        private System.Windows.Forms.Label waitLabel;
     }
 }
 
