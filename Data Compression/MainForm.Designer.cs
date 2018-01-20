@@ -148,9 +148,9 @@
             this.arithmeticRadioButton.AutoSize = true;
             this.arithmeticRadioButton.Location = new System.Drawing.Point(287, 64);
             this.arithmeticRadioButton.Name = "arithmeticRadioButton";
-            this.arithmeticRadioButton.Size = new System.Drawing.Size(191, 29);
+            this.arithmeticRadioButton.Size = new System.Drawing.Size(306, 29);
             this.arithmeticRadioButton.TabIndex = 5;
-            this.arithmeticRadioButton.Text = "Arithmetic Coding";
+            this.arithmeticRadioButton.Text = "Arithmetic Coding (in progress)";
             this.arithmeticRadioButton.UseVisualStyleBackColor = true;
             // 
             // lzwRadioButton

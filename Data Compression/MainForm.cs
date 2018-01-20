@@ -63,6 +63,58 @@ namespace Data_Compression
             lengthLabel.Text = "Total length: " + String.Format("{0:n0}", f.Length) + " bytes";
         }
 
+        CompressedFileInfo Compress(string sourcePath, string destPath, ALGORITHM algorithm, bool losslessJPEG)
+        {
+            CompressedFileInfo file = new CompressedFileInfo();
+            string header = Path.GetExtension(sourcePath) + "\r\n";
+            byte[] data = new byte[0];
+            if (!losslessJPEG)
+                data = File.ReadAllBytes(sourcePath);
+            else
+            {
+                Bitmap image = new Bitmap(sourcePath);
+                data = new DifferentialImageCoding().Encode(image);
+                header += ((int)ALGORITHM.DifferentialImageCoding).ToString();
+                string s1 = Utilities.ConvertIntegerToBinaryString(image.Width, 16);
+                string s2 = Utilities.ConvertIntegerToBinaryString(image.Height, 16);
+                int i1 = Utilities.ConvertBinaryStringToInteger(s1.Substring(0, 8));
+                int i2 = Utilities.ConvertBinaryStringToInteger(s1.Substring(8, 8));
+                int i3 = Utilities.ConvertBinaryStringToInteger(s2.Substring(0, 8));
+                int i4 = Utilities.ConvertBinaryStringToInteger(s2.Substring(8, 8));
+                header += ((char)i1).ToString() + ((char)i2).ToString() + ((char)i3).ToString() + ((char)i4).ToString();
+            }
+            byte[] encodeData = new byte[0];
+            switch (algorithm)
+            {
+                case ALGORITHM.ShannonFanoCoding:
+                    encodeData = new ShannonFanoCoding().Encode(data);
+                    break;
+                case ALGORITHM.HuffmanCoding:
+                    encodeData = new HuffmanCoding().Encode(data);
+                    break;
+                case ALGORITHM.RunLengthCoding:
+                    encodeData = new RunLengthCoding().Encode(data);
+                    break;
+                case ALGORITHM.LZWCoding:
+                    encodeData = new LZWCoding().Encode(data);
+                    break;
+                case ALGORITHM.ArithmeticCoding:
+                    encodeData = new ArithmeticCoding().Encode(data);
+                    break;
+            }
+            header += ((int)algorithm).ToString();
+            FileStream writer = new FileStream(destPath, FileMode.Create, FileAccess.Write);
+            byte[] headerData = Utilities.ConvertStringToBytes(header);
+            writer.Write(headerData, 0, headerData.Length);
+            writer.Write(encodeData, 0, encodeData.Length);
+            writer.Close();
+
+            long compressedLength = new FileInfo(destPath).Length;
+            long originalLength = new FileInfo(sourcePath).Length;
+            file = new CompressedFileInfo(Path.GetFileName(destPath), algorithm.ToString(), originalLength, compressedLength);
+            return file;
+        }
+
         void DoCompression()
         {
             string sourcePath = pathTextBox.Text;
@@ -72,7 +124,17 @@ namespace Data_Compression
             List<CompressedFileInfo> files = new List<CompressedFileInfo>();
             if (algorithmCheckBox.Checked)
             {
-                
+                string name = Path.GetFileNameWithoutExtension(destPath);
+                string ext = Path.GetExtension(destPath);
+                string path = Path.GetDirectoryName(destPath);
+                string name1 = path + "/" + name + "_1" + ext;
+                string name2 = path + "/" + name + "_2" + ext;
+                string name3 = path + "/" + name + "_3" + ext;
+                string name4 = path + "/" + name + "_4" + ext;
+                files.Add(Compress(sourcePath, name1, ALGORITHM.ShannonFanoCoding, losslessJPEG));
+                files.Add(Compress(sourcePath, name2, ALGORITHM.HuffmanCoding, losslessJPEG));
+                files.Add(Compress(sourcePath, name3, ALGORITHM.RunLengthCoding, losslessJPEG));
+                files.Add(Compress(sourcePath, name4, ALGORITHM.LZWCoding, losslessJPEG));
             }
             else
             {
